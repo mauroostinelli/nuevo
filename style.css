@@ -10,6 +10,8 @@
     --accent-hover-color: #00a090; /* Verde azulado más oscuro */
     --success-color: #2ecc71;       /* Verde éxito */
     --warning-color: #f39c12;       /* Naranja advertencia */
+    --danger-color: #e74c3c;        /* Rojo suave (para reset) */
+    --danger-hover-color: #c0392b;  /* Rojo más oscuro (para reset hover) */
     --text-color: #34495e;         /* Gris oscuro texto principal */
     --light-text-color: #ffffff;   /* Texto blanco */
     --border-color: #dce4e3;       /* Borde sutil */
@@ -62,16 +64,7 @@ header {
 header h1 {
     margin-bottom: 0.25rem;
     font-weight: 700;
-}
-.beta-tag {
-    font-size: 0.7em;
-    font-weight: normal;
-    vertical-align: super;
-    background-color: var(--warning-color);
-    color: var(--light-text-color);
-    padding: 2px 5px;
-    border-radius: 3px;
-    margin-left: 5px;
+    /* Beta tag class removed as element is gone */
 }
 
 footer {
@@ -81,6 +74,15 @@ footer {
     text-align: center;
     margin-top: auto; /* Empuja el footer hacia abajo */
     font-size: 0.9rem;
+}
+
+footer a { /* Si hubiera enlaces en el footer */
+    color: var(--accent-color);
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
 }
 
 /* ------------------------- */
@@ -102,22 +104,22 @@ main#governance-constructor {
 #progress-bar-container {
     width: 100%;
     background-color: #e9ecef;
-    border-radius: 15px; /* Más redondeado */
+    border-radius: 15px;
     margin-bottom: calc(var(--spacing-unit) * 2);
     padding: 5px;
     position: relative;
     height: 30px;
     display: flex;
     align-items: center;
-    overflow: hidden; /* Para bordes redondeados internos */
+    overflow: hidden;
 }
 
 #progress-bar {
     height: 100%;
     width: 10%; /* Actualizado por JS */
     background: linear-gradient(90deg, var(--accent-color) 0%, var(--success-color) 100%);
-    border-radius: 10px; /* Redondeado interno */
-    transition: width 0.5s cubic-bezier(0.65, 0, 0.35, 1); /* Transición más suave */
+    border-radius: 10px;
+    transition: width 0.5s cubic-bezier(0.65, 0, 0.35, 1);
     box-shadow: inset 0 -2px 4px rgba(0,0,0,0.1);
 }
 
@@ -126,9 +128,9 @@ main#governance-constructor {
     width: 100%;
     text-align: center;
     font-weight: bold;
-    color: var(--primary-color); /* Mejor contraste */
+    color: var(--primary-color);
     font-size: 0.9rem;
-    line-height: 20px; /* Alineado con altura barra interna */
+    line-height: 20px;
 }
 
 /* ------------------------- */
@@ -136,14 +138,11 @@ main#governance-constructor {
 /* ------------------------- */
 #steps-container {
     position: relative;
-    overflow: hidden; /* Para animaciones */
+    overflow: hidden;
 }
 
 .step {
     display: none;
-    /* padding: calc(var(--spacing-unit) * 1.5); */ /* Se gestiona en los módulos */
-    /* border: 1px solid var(--border-color); */
-    /* border-radius: var(--border-radius); */
     margin-top: var(--spacing-unit);
     animation: fadeIn 0.6s ease-out;
 }
@@ -168,7 +167,6 @@ main#governance-constructor {
   from { opacity: 0; transform: translateY(15px); }
   to { opacity: 1; transform: translateY(0); }
 }
-/* Considerar animaciones de salida si se desea */
 
 /* ------------------------- */
 /* Estilos de Módulos        */
@@ -222,7 +220,6 @@ main#governance-constructor {
     padding: var(--spacing-unit) calc(var(--spacing-unit) * 1.5);
     margin-top: 1rem;
     border-radius: var(--border-radius);
-    /* min-height: 50px; */ /* Quitado para que se ajuste al contenido */
 }
 
 .interactive-area p,
@@ -231,7 +228,7 @@ main#governance-constructor {
 .dashboard-area p {
     color: #667;
     font-style: italic;
-    margin-bottom: 0.5rem; /* Espacio antes del contenido real */
+    margin-bottom: 0.5rem;
 }
 .interactive-area p:last-child,
 .visualization-area p:last-child,
@@ -239,7 +236,6 @@ main#governance-constructor {
 .dashboard-area p:last-child {
     margin-bottom: 0;
 }
-
 
 /* Grid para checkboxes/radios */
 .grid-checkboxes, .radio-group {
@@ -265,7 +261,7 @@ main#governance-constructor {
 .grid-checkboxes input[type="checkbox"],
 .radio-group input[type="radio"] {
     margin-right: 0.75rem;
-    accent-color: var(--primary-color); /* Colorea el check/radio */
+    accent-color: var(--primary-color);
     transform: scale(1.1);
 }
 
@@ -288,10 +284,10 @@ main#governance-constructor {
     height: 8px;
     background: linear-gradient(to right, var(--accent-color) 0%, var(--accent-color) var(--value, 50%), #ddd var(--value, 50%), #ddd 100%);
     border-radius: 5px;
-    appearance: none; /* Quita estilos por defecto */
+    appearance: none;
     outline: none;
 }
-.slider-container input[type="range"]::-webkit-slider-thumb { /* Chrome/Safari */
+.slider-container input[type="range"]::-webkit-slider-thumb {
      appearance: none;
      width: 18px;
      height: 18px;
@@ -299,7 +295,7 @@ main#governance-constructor {
      border-radius: 50%;
      cursor: pointer;
 }
-.slider-container input[type="range"]::-moz-range-thumb { /* Firefox */
+.slider-container input[type="range"]::-moz-range-thumb {
     width: 18px;
     height: 18px;
     background: var(--primary-color);
@@ -316,7 +312,7 @@ main#governance-constructor {
     font-weight: bold;
     color: var(--primary-color);
     margin-left: 1rem;
-    min-width: 100px; /* Espacio para texto */
+    min-width: 100px;
 }
 
 /* Selects */
@@ -337,7 +333,7 @@ select:focus {
     border-color: var(--accent-color);
     box-shadow: 0 0 0 2px rgba(0, 187, 169, 0.3);
 }
-label.checkbox-label { /* Para checkboxes sueltos */
+label.checkbox-label {
     display: block;
     margin-top: 0.75rem;
     cursor: pointer;
@@ -362,14 +358,13 @@ input[type="number"]:focus {
     box-shadow: 0 0 0 2px rgba(0, 187, 169, 0.3);
 }
 
-
 /* Texto dinámico explicativo */
 .dynamic-text {
     font-size: 0.9em;
     color: #667;
     margin-top: 0.5rem;
     font-style: italic;
-    width: 100%; /* Para que ocupe línea completa en flex */
+    width: 100%;
 }
 
 /* Alertas */
@@ -382,16 +377,16 @@ input[type="number"]:focus {
 .alert-area.hidden {
     display: none;
 }
-.alert-area:not(.hidden) { /* Estilo cuando está visible */
+.alert-area:not(.hidden) {
     background-color: #fef3cd;
     border-color: var(--warning-color);
     color: #664d03;
 }
-.alert-area:not(.hidden) span {
+.alert-area:not(.hidden) span { /* Si se usa un span dentro */
     font-weight: bold;
 }
 
-/* Disclaimer */
+/* Disclaimer general (final del paso) */
 .disclaimer {
     font-size: 0.85em;
     font-style: italic;
@@ -402,6 +397,46 @@ input[type="number"]:focus {
     padding-top: 1rem;
 }
 
+/* Disclaimer específico para visualizaciones */
+.disclaimer-viz {
+    font-size: 0.85em;
+    font-style: italic;
+    color: #777;
+    text-align: center;
+    margin-top: 0.75rem;
+}
+
+/* Contenedor para input 'Otro' (Añadido) */
+.other-input-container {
+    margin-top: 1rem;
+    padding: 1rem;
+    border: 1px solid var(--placeholder-border); /* Borde sutil */
+    background-color: #fdfdfd; /* Fondo ligeramente diferente */
+    border-radius: var(--border-radius);
+}
+.other-input-container.hidden {
+    display: none;
+}
+.other-input-container label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    color: var(--primary-color); /* Color etiqueta */
+}
+.other-input-container textarea {
+    width: 100%;
+    padding: 0.6rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    font-family: inherit;
+    font-size: 0.95rem;
+    min-height: 60px; /* Altura mínima */
+}
+.other-input-container textarea:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 2px rgba(0, 187, 169, 0.3);
+}
 
 /* ----------------------------- */
 /* Visualizaciones Simplificadas */
@@ -412,7 +447,7 @@ input[type="number"]:focus {
     border-top: 1px dashed var(--border-color);
     text-align: center;
 }
-.visualization-placeholder > p { /* Texto descriptivo de la visualización */
+.visualization-placeholder > p {
     font-weight: bold;
     color: var(--primary-color);
     margin-top: 0.75rem;
@@ -470,115 +505,135 @@ input[type="number"]:focus {
 
 /* Termómetro Transparencia */
 .thermometer { position: relative; width: 30px; height: 120px; background-color: #eee; border-radius: 15px 15px 0 0; margin: 1rem auto 0; border: 2px solid var(--primary-color); border-bottom: none; }
-.thermometer-mercury { position: absolute; bottom: 0; left: 5px; width: 20px; background-color: var(--accent-color); border-radius: 10px 10px 0 0; height: 50%; /* Actualizado por JS */ transition: height 0.4s ease-out; }
+.thermometer-mercury { position: absolute; bottom: 0; left: 5px; width: 20px; background-color: var(--accent-color); border-radius: 10px 10px 0 0; height: 50%; transition: height 0.4s ease-out; }
 .thermometer-base { position: absolute; bottom: -15px; left: -5px; width: 40px; height: 40px; background-color: var(--accent-color); border-radius: 50%; border: 2px solid var(--primary-color); }
 
 /* Escudo Autonomía */
 .autonomy-shield {
-    position: relative;
-    width: 100px; height: 120px;
-    background-color: var(--secondary-color);
-    border: 3px solid var(--primary-color);
-    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; /* Forma de escudo */
-    margin: 1rem auto 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    position: relative; width: 100px; height: 120px;
+    background-color: var(--secondary-color); border: 3px solid var(--primary-color);
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    margin: 1rem auto 0; display: flex; justify-content: center; align-items: center;
     overflow: hidden;
 }
 .autonomy-shield span { color: var(--primary-color); font-weight: bold; z-index: 3; font-size: 0.8em; }
-.shield-layer {
-    position: absolute; width: 100%; height: 100%;
-    border-radius: inherit;
-    opacity: 0.3;
-    transition: background-color 0.4s ease;
+.shield-layer { position: absolute; width: 100%; height: 100%; border-radius: inherit; opacity: 0.3; transition: background-color 0.4s ease; }
+#shield-layer-1 { background-color: transparent; z-index: 0; }
+#shield-layer-2 { background-color: transparent; z-index: 1; }
+#shield-layer-3 { background-color: transparent; z-index: 2; }
+
+/* Árbol Conocimiento (Mejorado) */
+.knowledge-tree {
+    position: relative;
+    width: 180px;
+    height: 180px;
+    margin: 1rem auto 0;
+    /* border: 1px dashed lightgrey; Para depuración */
 }
-#shield-layer-1 { background-color: var(--success-color); z-index: 0; /* Se actualiza con JS */ }
-#shield-layer-2 { background-color: var(--warning-color); z-index: 1; /* Se actualiza con JS */ }
-#shield-layer-3 { background-color: var(--primary-color); z-index: 2; /* Se actualiza con JS */ }
-
-
-/* Árbol Conocimiento (Simple) */
-.knowledge-tree { position: relative; width: 150px; height: 150px; margin: 1rem auto 0; }
-.tree-trunk { width: 15px; height: 50px; background-color: #8b4513; position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); }
-.tree-base { position: absolute; bottom: 0; left: 0; width: 100%; text-align: center; font-weight: bold; color: #555; font-size: 0.9em; }
-.tree-branches { position: absolute; top: 0; left: 0; width: 100%; height: 100px; }
-.branch { /* Estilo base rama, JS añade más */
+.tree-trunk {
+    width: 20px;
+    height: 60px;
+    background-color: #a0522d; /* Marrón más siena */
     position: absolute;
-    width: 50px; height: 50px;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 3px;
+    z-index: 1; /* Encima de las ramas inferiores */
+}
+.tree-base {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+    color: #555;
+    font-size: 0.9em;
+}
+.tree-branches {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 130px; /* Área mayor para las ramas */
+    /* border: 1px dashed blue; Para depuración */
+    z-index: 0;
+}
+.branch { /* Círculos que simulan hojas/ramas */
+    position: absolute; /* Posición controlada por JS */
+    width: 50px; /* Tamaño base de los círculos */
+    height: 50px;
     background-color: var(--success-color);
     border-radius: 50%;
-    opacity: 0.7;
-    transition: transform 0.4s ease, opacity 0.4s ease;
+    opacity: 0.6; /* Opacidad base */
+    transition: transform 0.4s ease, opacity 0.4s ease, background-color 0.3s ease;
+    box-shadow: inset 0 0 8px rgba(0,0,0,0.1); /* Sombra interior */
 }
-/* JS posicionará y añadirá ramas */
 
-/* Mapa Cooperación (Simple) */
+/* Mapa Cooperación */
 .cooperation-map { position: relative; width: 250px; height: 100px; margin: 1rem auto 0; display: flex; justify-content: space-around; align-items: center; }
 .map-node { background-color: var(--primary-color); color: white; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.9em; text-align: center; z-index: 1; }
 .map-node.self { background-color: var(--accent-color); }
 .map-node.other { background-color: #aaa; transition: background-color 0.3s ease; }
 .map-link { position: absolute; top: 50%; left: 25%; width: 50%; height: 3px; background-color: #ccc; z-index: 0; transition: background-color 0.3s ease; transform: translateY(-50%); }
-#coop-link-1 { left: 15%; width: 25%; } /* Ajustar posiciones */
+#coop-link-1 { left: 15%; width: 25%; }
 #coop-link-2 { left: 60%; width: 25%; }
 
 /* Medidor Impacto */
-.impact-meter { position: relative; width: 180px; height: 90px; /* Semicírculo */ border-top-left-radius: 90px; border-top-right-radius: 90px; background: linear-gradient(to right, var(--warning-color), var(--success-color), var(--accent-color)); margin: 1.5rem auto 0; overflow: hidden; border: 2px solid var(--primary-color); border-bottom: none; }
-.meter-needle { position: absolute; bottom: 0; left: 50%; width: 3px; height: 85px; background-color: var(--primary-color); transform-origin: bottom center; transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Efecto rebote */ transform: translateX(-50%) rotate(-60deg); /* Inicio - Actualiza JS */ }
+.impact-meter { position: relative; width: 180px; height: 90px; border-top-left-radius: 90px; border-top-right-radius: 90px; background: linear-gradient(to right, var(--warning-color), var(--success-color), var(--accent-color)); margin: 1.5rem auto 0; overflow: hidden; border: 2px solid var(--primary-color); border-bottom: none; }
+.meter-needle { position: absolute; bottom: 0; left: 50%; width: 3px; height: 85px; background-color: var(--primary-color); transform-origin: bottom center; transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55); transform: translateX(-50%) rotate(-60deg); }
 .meter-scale { position: absolute; bottom: 5px; width: 100%; display: flex; justify-content: space-between; padding: 0 15px; font-size: 0.75em; color: var(--primary-color); font-weight: bold; }
-
 
 /* ------------------------- */
 /* Dashboard y Output        */
 /* ------------------------- */
-.dashboard-area ul {
-    list-style: none;
-    padding: 0;
-}
-.dashboard-area li {
-    margin-bottom: 0.75rem;
-    padding-bottom: 0.75rem;
-    border-bottom: 1px dotted var(--border-color);
-}
-.dashboard-area li:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-    border-bottom: none;
-}
-.dashboard-area strong {
-    color: var(--primary-color);
-    display: block;
-    margin-bottom: 0.25rem;
-}
-.dashboard-area span {
-    margin-left: 1rem;
-    font-style: italic;
-}
+.dashboard-area ul { list-style: none; padding: 0; }
+.dashboard-area li { margin-bottom: 0.75rem; padding-bottom: 0.75rem; border-bottom: 1px dotted var(--border-color); }
+.dashboard-area li:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+.dashboard-area strong { color: var(--primary-color); display: block; margin-bottom: 0.25rem; }
+.dashboard-area span { margin-left: 0; /* Quitamos indentación para mejor lectura */ display: block; /* Ocupa línea nueva */ font-style: normal; color: #555; }
 
 .output-area {
     background-color: #f8f9fa;
-    font-family: monospace;
-    font-size: 0.9em;
+    font-family: var(--font-family); /* Fuente normal, no monoespaciada */
+    font-size: 0.95em; /* Ligeramente más grande */
     line-height: 1.7;
-    white-space: pre-wrap; /* Conserva saltos de línea */
-    max-height: 400px;
+    /* white-space: pre-wrap; Quitamos para que <br> controle saltos */
+    max-height: 450px; /* Un poco más alto */
     overflow-y: auto;
+    padding: calc(var(--spacing-unit)*1.5); /* Más padding */
+    border: 1px solid var(--placeholder-border);
+    border-radius: var(--border-radius);
 }
-.output-area h4 {
-     font-family: var(--font-family); /* Volver a fuente normal para títulos */
+.output-area h4 { /* Estilo del título dentro del output */
+     font-family: var(--font-family);
      font-weight: bold;
      color: var(--primary-color);
-     margin-bottom: 1rem;
+     text-align: center;
+     margin-bottom: 1.5rem;
+     padding-bottom: 0.5rem;
+     border-bottom: 1px solid var(--accent-color);
 }
-.output-area strong {
+.output-area strong { /* Estilo de los títulos de sección */
     font-family: var(--font-family);
     font-weight: bold;
+    color: var(--primary-color);
+    display: block; /* Ocupa su línea */
+    margin-top: 1rem; /* Espacio antes de cada sección */
+    margin-bottom: 0.5rem;
+}
+.output-area em { /* Para la línea final */
+    display: block;
+    text-align: center;
+    margin-top: 1.5rem;
+    color: #888;
 }
 
 /* Radar Chart Container */
 .radar-chart-container {
     padding: 1rem;
-    max-width: 500px; /* Limitar tamaño */
+    max-width: 500px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -588,58 +643,84 @@ input[type="number"]:focus {
 /* ------------------------- */
 #navigation-buttons {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between; /* Espacio entre grupos de botones */
+    align-items: center;
+    flex-wrap: wrap; /* Permite envolver en pantallas pequeñas */
+    gap: 1rem; /* Espacio entre botones */
     margin-top: calc(var(--spacing-unit) * 2.5);
     padding-top: calc(var(--spacing-unit) * 1.5);
     border-top: 1px solid var(--border-color);
 }
 
+/* Estilos generales para todos los botones de navegación */
 #navigation-buttons button {
-    padding: 0.8rem 1.8rem;
-    font-size: 1.1rem;
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
     font-weight: 700;
     border: none;
     border-radius: var(--border-radius);
     cursor: pointer;
     transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    flex-grow: 0; /* No crecen por defecto */
+    flex-shrink: 0; /* No encogen por defecto */
 }
-
 #navigation-buttons button:hover:not(:disabled) {
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0,0,0,0.15);
 }
-
-#prev-btn {
-    background-color: #bdc3c7;
-    color: var(--primary-color);
-}
-#prev-btn:hover:not(:disabled) {
-     background-color: #a4acb0;
-}
-
-#next-btn, #download-draft-btn {
-    background-color: var(--accent-color);
-    color: var(--light-text-color);
-}
-#next-btn:hover, #download-draft-btn:hover {
-    background-color: var(--accent-hover-color);
-}
-
 #navigation-buttons button:disabled {
     background-color: var(--disabled-color);
-    color: #eee;
+    color: #f0f0f0;
     cursor: not-allowed;
     opacity: 0.7;
     box-shadow: none;
     transform: none;
 }
 
+
+/* Botón Reiniciar (Izquierda) */
+#reset-btn {
+    background-color: var(--danger-color); /* Rojo */
+    color: var(--light-text-color);
+    /* order: 1;  No necesario si es el primero en HTML */
+}
+#reset-btn:hover:not(:disabled) {
+    background-color: var(--danger-hover-color);
+}
+
+/* Botón Anterior (Centro-Izquierda) */
+#prev-btn {
+    background-color: #bdc3c7; /* Gris */
+    color: var(--primary-color);
+     /* order: 2; */
+}
+#prev-btn:hover:not(:disabled) {
+     background-color: #a4acb0;
+}
+
+/* Botón Siguiente (Derecha) */
+#next-btn {
+    background-color: var(--accent-color); /* Verde azulado */
+    color: var(--light-text-color);
+    margin-left: auto; /* Empuja a la derecha */
+     /* order: 3; */
+}
+#next-btn:hover:not(:disabled) {
+    background-color: var(--accent-hover-color);
+}
+
+
+/* Botón Descarga (Estilo primario, como Siguiente) */
+/* Hereda estilos de button, ajustamos aquí si es necesario */
 #download-draft-btn {
-    margin-top: var(--spacing-unit);
-    display: block; /* Para que ocupe su línea */
-    margin-left: auto;
-    margin-right: auto;
+    /* Mismos colores que #next-btn */
+     background-color: var(--accent-color);
+     color: var(--light-text-color);
+     /* Estilos específicos de tamaño/margen ya están definidos */
+}
+#download-draft-btn:hover:not(:disabled) {
+    background-color: var(--accent-hover-color);
 }
 
 
@@ -653,19 +734,14 @@ input[type="number"]:focus {
         width: 95%;
     }
 
-    header, footer {
-        padding: var(--spacing-unit);
-    }
+    header, footer { padding: var(--spacing-unit); }
     header h1 { font-size: 1.5rem; }
     header p { font-size: 0.9rem; }
 
     .step h2 { font-size: 1.4rem; }
     .module h3 { font-size: 1.15rem; }
 
-    .grid-checkboxes, .radio-group {
-        grid-template-columns: 1fr; /* Una columna en móvil */
-    }
-
+    .grid-checkboxes, .radio-group { grid-template-columns: 1fr; }
     .slider-container { flex-direction: column; align-items: flex-start; }
     .slider-container input[type="range"] { width: 100%; }
     .slider-value { margin-left: 0; margin-top: 0.5rem; }
@@ -673,13 +749,24 @@ input[type="number"]:focus {
     .comparison { flex-direction: column; }
     .comparison-item { width: 100%; }
 
-    #navigation-buttons button {
-        padding: 0.7rem 1.2rem;
-        font-size: 1rem;
-    }
-    #navigation-buttons { flex-direction: column; gap: 1rem; }
-    #prev-btn { order: 2; }
-    #next-btn { order: 1; }
+     /* Ajuste botones en móvil: Ocupan más espacio */
+     #navigation-buttons {
+         justify-content: center; /* Centra los botones si se envuelven */
+     }
+     #navigation-buttons button {
+         flex-basis: 45%; /* Intenta poner 2 por línea */
+         text-align: center;
+         margin-bottom: 0.5rem; /* Espacio si envuelven */
+     }
+     /* Asegurar que Siguiente quede abajo si envuelve */
+     #next-btn { flex-basis: 100%; margin-left: 0; }
+
 
     .radar-chart-container { padding: 0.5rem; }
+}
+@media (max-width: 480px) {
+     /* Botones en columna en pantallas muy pequeñas */
+     #navigation-buttons button {
+         flex-basis: 100%;
+     }
 }
