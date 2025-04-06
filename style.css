@@ -1,4 +1,4 @@
-/* INICIO: Código CSS Completo Final (style.css) */
+/* INICIO: Código CSS Completo Final Revisado (style.css) */
 
 /* ------------------------- */
 /* Variables CSS Globales    */
@@ -142,17 +142,17 @@ main#governance-constructor {
 /* ------------------------- */
 #steps-container {
     position: relative;
-    overflow: hidden; /* Helps manage animations if added */
+    overflow: hidden;
 }
 
 .step {
-    display: none; /* Hide steps by default */
+    display: none;
     margin-top: var(--spacing-unit);
-    animation: fadeIn 0.6s ease-out; /* Fade-in animation */
+    animation: fadeIn 0.6s ease-out;
 }
 
 .step.active {
-    display: block; /* Show the active step */
+    display: block;
 }
 
 .step h2 {
@@ -199,9 +199,12 @@ main#governance-constructor {
     font-size: 1rem;
     color: #555;
 }
-/* Clarification moved from H3 to P tag */
-.module p:first-of-type {
-    margin-top: -0.5rem; /* Adjust spacing if needed after H3 */
+/* Párrafo aclaratorio después de H3 (si existe) */
+.module h3 + p {
+    margin-top: -0.5rem; /* Reducir espacio si es una aclaración */
+    font-size: 0.9em; /* Más pequeño */
+    font-style: italic; /* Cursiva */
+    color: #777; /* Más gris */
 }
 
 
@@ -480,7 +483,7 @@ input[type="number"]:focus {
 
 /* Termómetro Transparencia */
 .thermometer { position: relative; width: 30px; height: 120px; background-color: #eee; border-radius: 15px 15px 0 0; margin: 1rem auto 0; border: 2px solid var(--primary-color); border-bottom: none; }
-.thermometer-mercury { position: absolute; bottom: 0; left: 5px; width: 20px; background-color: var(--accent-color); border-radius: 10px 10px 0 0; height: 10%; /* Altura mínima */ transition: height 0.4s ease-out; }
+.thermometer-mercury { position: absolute; bottom: 0; left: 5px; width: 20px; background-color: var(--accent-color); border-radius: 10px 10px 0 0; height: 10%; transition: height 0.4s ease-out; }
 .thermometer-base { position: absolute; bottom: -15px; left: -5px; width: 40px; height: 40px; background-color: var(--accent-color); border-radius: 50%; border: 2px solid var(--primary-color); }
 
 /* Escudo Autonomía */
@@ -494,13 +497,7 @@ input[type="number"]:focus {
 .tree-trunk { width: 20px; height: 60px; background-color: #a0522d; position: absolute; bottom: 25px; left: 50%; transform: translateX(-50%); border-radius: 3px; z-index: 1; }
 .tree-base { position: absolute; bottom: 0; left: 0; width: 100%; text-align: center; font-weight: bold; color: #555; font-size: 0.9em; }
 .tree-branches { position: absolute; top: 0; left: 0; width: 100%; height: 130px; z-index: 0; } /* Área para ramas */
-.branch { /* Estilo base, JS controla pos, color, etc */
-    position: absolute;
-    width: 50px; height: 50px;
-    background-color: var(--success-color); border-radius: 50%;
-    opacity: 0.6; transition: transform 0.4s ease, opacity 0.4s ease, background-color 0.3s ease;
-    box-shadow: inset 0 0 8px rgba(0,0,0,0.1);
-}
+.branch { position: absolute; width: 50px; height: 50px; background-color: var(--success-color); border-radius: 50%; opacity: 0.6; transition: transform 0.4s ease, opacity 0.4s ease, background-color 0.3s ease; box-shadow: inset 0 0 8px rgba(0,0,0,0.1); }
 
 /* Mapa Cooperación */
 .cooperation-map { position: relative; width: 250px; height: 100px; margin: 1rem auto 0; display: flex; justify-content: space-around; align-items: center; }
@@ -535,11 +532,11 @@ input[type="number"]:focus {
      text-align: center; margin-bottom: 1.5rem; padding-bottom: 0.5rem;
      border-bottom: 1px solid var(--accent-color);
 }
-.output-area strong { /* Títulos sección borrador */
+.output-area strong { /* Títulos de sección en borrador */
     font-family: var(--font-family); font-weight: bold; color: var(--primary-color);
     display: block; margin-top: 1rem; margin-bottom: 0.5rem;
 }
-.output-area ul { padding-left: 1.5rem; margin-top:0.5rem; margin-bottom: 1rem;} /* Estilo listas */
+.output-area ul { padding-left: 1.5rem; margin-top:0.5rem; margin-bottom: 1rem;}
 .output-area li { margin-bottom: 0.3rem; }
 .output-area em { display: block; text-align: center; margin-top: 1.5rem; color: #888; }
 
@@ -547,15 +544,16 @@ input[type="number"]:focus {
 .radar-chart-container {
     padding: 1rem;
     max-width: 500px; /* Limitar tamaño gráfico */
-    min-height: 300px; /* Asegurar espacio vertical */
+    min-height: 350px; /* Asegurar espacio vertical suficiente */
     margin-left: auto;
     margin-right: auto;
-    position: relative; /* Para posible overlay o mensaje */
+    position: relative; /* Para mensajes de error/carga */
 }
-/* Estilo para el canvas en sí, si es necesario */
+/* Estilo para el canvas */
 #aciRadarChart {
     max-width: 100%;
     height: auto; /* Mantiene proporción */
+    display: block; /* Evitar espacio extra debajo */
 }
 
 /* ------------------------- */
@@ -608,20 +606,21 @@ input[type="number"]:focus {
     header, footer { padding: var(--spacing-unit); }
     header h1 { font-size: 1.5rem; } header p { font-size: 0.9rem; }
     .step h2 { font-size: 1.4rem; } .module h3 { font-size: 1.15rem; }
-    .grid-checkboxes, .radio-group { grid-template-columns: 1fr; } /* Una columna */
+    .grid-checkboxes, .radio-group { grid-template-columns: 1fr; }
     .slider-container { flex-direction: column; align-items: flex-start; }
     .slider-container input[type="range"] { width: 100%; }
     .slider-value { margin-left: 0; margin-top: 0.5rem; }
     .comparison { flex-direction: column; } .comparison-item { width: 100%; }
-    #navigation-buttons { justify-content: center; } /* Centrar si envuelve */
-    #navigation-buttons button { flex-basis: 45%; text-align: center; margin-bottom: 0.5rem; } /* Intentar 2 por línea */
-    #next-btn { flex-basis: 100%; margin-left: 0; } /* Siguiente ocupa todo ancho */
-    .radar-chart-container { padding: 0.5rem; max-width: 100%; } /* Ocupar ancho en móvil */
+    #navigation-buttons { justify-content: center; }
+    #navigation-buttons button { flex-basis: 45%; text-align: center; margin-bottom: 0.5rem; }
+    #next-btn { flex-basis: 100%; margin-left: 0; }
+    .radar-chart-container { padding: 0.5rem; max-width: 100%; min-height: 250px; /* Menos altura en móvil */ }
 }
 @media (max-width: 480px) {
      #navigation-buttons button { flex-basis: 100%; } /* Botones en columna */
-     #next-btn { order: 3; } /* Orden en columna */
+     #next-btn { order: 3; }
      #prev-btn { order: 2; }
      #reset-btn { order: 1; }
+     .radar-chart-container { min-height: 200px; }
 }
-/* FIN: Código CSS Completo Final (style.css) */
+/* FIN: Código CSS Completo Final Revisado (style.css) */
