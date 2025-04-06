@@ -85,7 +85,7 @@
                 <h2>Paso 2: Adhesión voluntaria y abierta <span class="principle-tag">P1</span></h2>
 
                 <div class="module">
-                     <h3>Nivel de apertura vs. compromiso</h3>
+                    <h3>Nivel de apertura vs. compromiso</h3>
                     <div id="openness-slider" class="interactive-area slider-container">
                          <label for="openness-level">Nivel de apertura:</label>
                          <span class="slider-label">Máxima facilidad (pocos requisitos)</span>
@@ -95,8 +95,9 @@
                     </div>
                 </div>
                 <div class="module">
-                     <h3>Criterios de elegibilidad</h3>
-                    <p>(Deben ser no discriminatorios)</p> <div id="eligibility-criteria" class="interactive-area grid-checkboxes">
+                    <h3>Criterios de elegibilidad</h3>
+                     <p>(Deben ser no discriminatorios)</p>
+                    <div id="eligibility-criteria" class="interactive-area grid-checkboxes">
                         <label><input type="checkbox" name="criteria" value="geografico"> Residencia/ubicación geográfica</label>
                         <label><input type="checkbox" name="criteria" value="tecnico"> Conexión técnica (ej. misma red BT)</label>
                         <label><input type="checkbox" name="criteria" value="inversion"> Aportación de capital mínima</label>
@@ -105,7 +106,7 @@
                     </div>
                 </div>
                  <div class="module">
-                     <h3>Inclusión y diversidad</h3>
+                    <h3>Inclusión y diversidad</h3>
                     <p>¿Se implementarán medidas activas para fomentar la inclusión?</p>
                      <div id="inclusion-lever" class="interactive-area radio-group">
                         <label><input type="radio" name="inclusion_strategy" value="ninguna" checked> Sin medidas específicas</label>
@@ -114,7 +115,7 @@
                     </div>
                 </div>
                 <div class="module">
-                     <h3>Miembro vs. cliente</h3>
+                    <h3>Miembro vs. cliente</h3>
                     <div id="member-vs-client-viz" class="visualization-area comparison">
                         <div class="comparison-item">
                             <h4>Miembro</h4>
@@ -158,7 +159,7 @@
                               <option value="representantes_bloque">Elección por bloques/tipos de miembros</option>
                               <option value="combinado">Sistema combinado</option>
                           </select>
-                          <label class="checkbox-label"><input type="checkbox" name="reserved_seats"> ¿Habrá puestos reservados para ciertos tipos de miembros (ej. vulnerables, fundadores)?</label>
+                          <label class="checkbox-label"><input type="checkbox" name="reserved_seats" value="true"> ¿Habrá puestos reservados para ciertos tipos de miembros (ej. vulnerables, fundadores)?</label>
                      </div>
                  </div>
                   <div class="module">
@@ -172,8 +173,8 @@
                             <option value="trimestral">Trimestral</option>
                             <option value="continua">Continua (web, etc.)</option>
                         </select>
-                        <label class="checkbox-label"><input type="checkbox" name="public_access" checked> ¿Actas/decisiones accesibles a todos los miembros?</label>
-                        <label class="checkbox-label"><input type="checkbox" name="external_audit"> ¿Auditoría externa periódica?</label>
+                        <label class="checkbox-label"><input type="checkbox" name="public_access" value="true" checked> ¿Actas/decisiones accesibles a todos los miembros?</label>
+                        <label class="checkbox-label"><input type="checkbox" name="external_audit" value="true"> ¿Auditoría externa periódica?</label>
                         <div class="visualization-placeholder">
                              <div class="thermometer">
                                 <div class="thermometer-mercury" id="transparency-mercury"></div>
@@ -239,8 +240,8 @@
                         <label for="external_funding_limit">Límite a la financiación/participación externa (% del capital total):</label>
                         <input type="number" name="external_funding_limit" id="external_funding_limit" value="25" min="0" max="75" step="5"> %
                         <p class="dynamic-text">Un límite bajo refuerza la autonomía.</p>
-                        <label class="checkbox-label"><input type="checkbox" name="veto_rights_members"> ¿Derecho de veto de los miembros sobre acuerdos clave con externos?</label>
-                        <label class="checkbox-label"><input type="checkbox" name="autonomy_clause" checked> Incluir cláusula explícita de autonomía en estatutos</label>
+                        <label class="checkbox-label"><input type="checkbox" name="veto_rights_members" value="true"> ¿Derecho de veto de los miembros sobre acuerdos clave con externos?</label>
+                        <label class="checkbox-label"><input type="checkbox" name="autonomy_clause" value="true" checked> Incluir cláusula explícita de autonomía en estatutos</label>
                      </div>
                      <div class="visualization-placeholder">
                          <div class="autonomy-shield" id="autonomy-shield-viz">
@@ -260,7 +261,7 @@
             <section id="step-6" class="step">
                 <h2>Paso 6: Educación, formación e información <span class="principle-tag">P5</span></h2>
                 <div class="module">
-                     <h3>Actividades de educación y formación</h3>
+                    <h3>Actividades de educación y formación</h3>
                     <p>¿Qué acciones se realizarán para informar y capacitar?</p>
                     <div id="education-activities" class="interactive-area grid-checkboxes">
                         <label><input type="checkbox" name="education" value="info_miembros" checked> Información regular a miembros sobre funcionamiento y energía</label>
@@ -367,7 +368,8 @@
 
                 <div class="module">
                     <h3>Puntuación de alineación con principios ACI</h3>
-                    <p>(Esta puntuación es ilustrativa)</p> <div id="aci-alignment-score" class="visualization-area radar-chart-container">
+                     <p>(Esta puntuación es ilustrativa)</p>
+                    <div id="aci-alignment-score" class="visualization-area radar-chart-container">
                         <canvas id="aciRadarChart"></canvas>
                     </div>
                      <p class="disclaimer">Nota: Esta puntuación se basa en una interpretación simplificada. Un análisis detallado requiere consulta experta.</p>
@@ -378,14 +380,12 @@
                     <div id="draft-output" class="output-area">
                         <p><em>Generando borrador de puntos clave...</em></p>
                     </div>
-                    <button id="download-draft-btn" class="action-button">Descargar borrador (PDF)</button>
-                     <p class="disclaimer">Este es un borrador preliminar y no un documento legal. Debe ser revisado por asesores legales/expertos.</p>
+                    <button id="download-draft-btn" class="action-button" disabled>Descargar borrador (PDF)</button> <p class="disclaimer">Este es un borrador preliminar y no un documento legal. Debe ser revisado por asesores legales/expertos.</p>
                 </div>
             </section>
 
         </div> <div id="navigation-buttons">
-            <button id="reset-btn" class="secondary-button">Reiniciar</button>
-            <button id="prev-btn" disabled>Anterior</button>
+            <button id="reset-btn" class="secondary-button" disabled>Reiniciar</button> <button id="prev-btn" disabled>Anterior</button>
             <button id="next-btn" class="primary-button">Siguiente</button>
         </div>
 
