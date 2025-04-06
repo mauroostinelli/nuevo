@@ -19,9 +19,7 @@
     </header>
 
     <main id="governance-constructor">
-        <form id="governance-form">
-
-            <div id="progress-bar-container">
+        <form id="governance-form" action="#" onsubmit="return false;"> <div id="progress-bar-container">
                 <div id="progress-bar"></div>
                 <span id="progress-step-text">Paso 1 de X</span>
             </div>
@@ -381,15 +379,14 @@
                         <div id="draft-output" class="output-area">
                             <p><em>Generando borrador de puntos clave...</em></p>
                         </div>
-                        <button id="download-draft-btn" class="action-button" disabled>Descargar borrador (PDF)</button>
-                         <p class="disclaimer">Este es un borrador preliminar y no un documento legal. Debe ser revisado por asesores legales/expertos.</p>
+                        <button id="download-draft-btn" class="action-button" type="button" disabled>Descargar borrador (PDF)</button> <p class="disclaimer">Este es un borrador preliminar y no un documento legal. Debe ser revisado por asesores legales/expertos.</p>
                     </div>
                 </section>
 
             </div> </form> <div id="navigation-buttons">
-            <button id="reset-btn" class="secondary-button" disabled>Reiniciar</button>
-            <button id="prev-btn" disabled>Anterior</button>
-            <button id="next-btn" class="primary-button">Siguiente</button>
+             <button id="reset-btn" class="secondary-button" type="button" disabled>Reiniciar</button>
+            <button id="prev-btn" type="button" disabled>Anterior</button>
+            <button id="next-btn" class="primary-button" type="button">Siguiente</button>
         </div>
 
     </main>
