@@ -1,6 +1,8 @@
 // script.js
 
 // CDNs requeridas en HTML: Chart.js, jsPDF
+// <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+// <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 document.addEventListener('DOMContentLoaded', () => {
     // --- Selección de Elementos DOM ---
@@ -15,12 +17,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const mainForm = document.getElementById('governance-constructor'); // Referencia al formulario
 
     // Elementos interactivos específicos
+    // NodeList es live, así que no necesita actualizarse si no se añade/quita HTML dinámicamente
     const formElements = document.querySelectorAll('#governance-constructor input, #governance-constructor select, #governance-constructor textarea');
     const otherVotingContainer = document.getElementById('other-voting-description-container');
     const otherVotingInput = document.getElementById('other_voting_description');
-    const votingRadios = document.querySelectorAll('input[name="voting_structure"]');
+    // Los NodeList como votingRadios se mantienen actualizados si no cambia el DOM
 
-    // Elementos de Visualización (sin cambios en selección)
+    // Elementos de Visualización
     const memberListViz = document.getElementById('member-list-viz');
     const purposeBalanceSlider = document.getElementById('purpose-balance-slider');
     const purposeBalanceValue = document.getElementById('purpose-balance-value');
@@ -52,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Estado ---
     let currentStep = 0;
     const totalSteps = steps.length;
-    let aciRadarChartInstance = null;
+    let aciRadarChartInstance = null; // Instancia del gráfico
 
     // Estado Inicial Inmutable
     const initialGovernanceData = Object.freeze({
@@ -70,7 +73,10 @@ document.addEventListener('DOMContentLoaded', () => {
     let governanceData = JSON.parse(JSON.stringify(initialGovernanceData));
 
     // --- Funciones Auxiliares ---
+
+    /** Convierte valor interno a texto legible en español. */
     function getFriendlyName(value) {
+        // (Sin cambios en la función getFriendlyName)
         const nameMap = {
             'reducir_facturas': 'Reducir facturas', 'energia_limpia': 'Energía limpia local', 'desarrollo_local': 'Desarrollo local', 'lucha_pobreza': 'Lucha pobreza energética', 'infraestructura': 'Infraestructura pública', 'educacion': 'Educación ambiental', 'flexibilidad': 'Flexibilidad al sistema',
             'hogares': 'Hogares', 'hogares_vulnerables': 'Hogares vulnerables', 'pymes': 'PYMEs', 'municipio': 'Ayuntamiento', 'otros': 'Otros',
@@ -81,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
             'asamblea_general': 'Asamblea general', 'representantes_bloque': 'Bloques/tipos miembro', 'combinado': 'Combinado',
             'anual': 'Anual', 'semestral': 'Semestral', 'trimestral': 'Trimestral', 'continua': 'Continua',
             'cuota_entrada': 'Cuota entrada', 'aportacion_capital': 'Aportación capital', 'cuota_periodica': 'Cuota periódica', 'aportacion_especie': 'Aportación especie', 'voluntariado': 'Voluntariado',
-            'reparto_miembros': 'Reparto a miembros', 'reserva_obligatoria': 'Dotar reservas', 'reinversion_comunidad': 'Reinversión comunidad',
+            'reparto_miembros': 'Reparto a miembros', 'reserva_obligatoria': 'Dotar reservas', 'reinversion_comunidad': 'Reinversión comunidad', 'combinado': 'Combinado',
             'descuento_factura': 'Descuento factura', 'prioridad_servicios': 'Prioridad servicios', 'retorno_diferenciado': 'Retorno diferenciado', 'reconocimiento': 'Reconocimiento', 'ninguno': 'Ninguno específico',
             'miembros_exclusivo': 'Exclusivo miembros', 'miembros_mayoritario': 'Mayoritario miembros', 'externos_consultivo': 'Externos consultivo',
             'info_miembros': 'Info a miembros', 'formacion_gobierno': 'Formación gobierno', 'talleres_publico': 'Talleres públicos', 'material_divulgativo': 'Material divulgativo', 'colaboracion_escuelas': 'Colab. escuelas',
@@ -96,28 +102,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Funciones Principales ---
 
-    /** Actualiza el objeto governanceData (¡CON CORRECCIÓN PARA BOOLEANOS!) */
+    /** Actualiza el objeto governanceData (Con manejo correcto de booleanos) */
     function updateGovernanceData(event) {
         const element = event.target;
         const name = element.name;
         const type = element.type;
         let value = element.value;
 
-        if (!name) return;
+        if (!name || !governanceData.hasOwnProperty(name)) return; // Ignorar si no tiene nombre o no está en el estado
 
         try {
-            // CORRECCIÓN: Manejo específico para checkboxes booleanos
+            // Manejo específico para checkboxes que representan booleanos en el estado
             if (type === 'checkbox' && typeof initialGovernanceData[name] === 'boolean') {
                  governanceData[name] = element.checked;
             }
-            // Manejo para checkboxes que son arrays
+            // Manejo para checkboxes que representan arrays
             else if (type === 'checkbox') {
-                if (!Array.isArray(governanceData[name])) {
-                    governanceData[name] = [];
-                }
+                if (!Array.isArray(governanceData[name])) governanceData[name] = []; // Asegurar que es array
                 const valueExists = governanceData[name].includes(value);
 
-                // Lógica exclusiva para incentivo 'ninguno'
+                // Lógica exclusiva 'ninguno'
                 if (name === 'incentive') {
                     if (element.checked) {
                         if (value === 'ninguno') {
@@ -139,7 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             }
                         }
                     }
-                } else { // Lógica estándar para checkboxes de array
+                } else { // Checkboxes de array estándar
                     if (element.checked) {
                         if (!valueExists) governanceData[name].push(value);
                     } else {
@@ -182,7 +186,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /** Muestra el paso especificado */
     function showStep(stepIndex) {
-         if (stepIndex < 0 || stepIndex >= totalSteps) return;
+        if (stepIndex < 0 || stepIndex >= totalSteps) return;
 
         steps.forEach((step, index) => {
             step.classList.toggle('active', index === stepIndex);
@@ -202,7 +206,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 generateDashboard();
                 generateDraftOutput();
                 updateRadarChart();
-             }, 150); // Aumentar ligeramente el delay por si acaso
+             }, 150);
         }
     }
 
@@ -220,19 +224,19 @@ document.addEventListener('DOMContentLoaded', () => {
     /** Configura botones de navegación */
     function updateButtons() {
         if(prevBtn) prevBtn.disabled = currentStep === 0;
-        // Permitir reiniciar siempre, excepto quizás en el paso 0
-        if(resetBtn) resetBtn.disabled = false; // Habilitado siempre (o currentStep === 0;)
+        if(resetBtn) resetBtn.disabled = false; // Habilitado siempre
 
         if (nextBtn) {
              if (currentStep === totalSteps - 1) {
                 nextBtn.textContent = 'Finalizar diseño';
-                nextBtn.disabled = false; // Mantener activo
+                nextBtn.disabled = false;
             } else {
                 nextBtn.textContent = 'Siguiente';
                 nextBtn.disabled = false;
             }
         }
-         if(downloadBtn) downloadBtn.disabled = currentStep !== totalSteps - 1;
+        // Habilitar descarga sólo en el último paso
+        if(downloadBtn) downloadBtn.disabled = currentStep !== totalSteps - 1;
     }
 
     // --- Funciones de Actualización de Visualizaciones ---
@@ -243,7 +247,7 @@ document.addEventListener('DOMContentLoaded', () => {
         updatePurposeBalanceViz();
         updateOpennessViz();
         updateVotingViz();
-        updateTransparencyViz(); // ¡Importante llamar a esta!
+        updateTransparencyViz(); // Importante incluir esta
         updateAutonomyViz();
         checkDependencyAlert();
         updateKnowledgeTreeViz();
@@ -251,24 +255,22 @@ document.addEventListener('DOMContentLoaded', () => {
         updateImpactViz();
     }
 
-     /** Actualiza visualizaciones relevantes para eficiencia */
+    /** Llama a funciones específicas para eficiencia */
     function updateRelevantVisualizations() {
-         // Se puede optimizar más si fuera necesario, pero llamar a todas es más simple ahora
+         // Por simplicidad y dado que no hay cuellos de botella, llamamos a todas
          updateAllVisualizations();
     }
 
-    function updateMemberListViz() { /* Sin cambios */ }
-    function updatePurposeBalanceViz() { /* Sin cambios */ }
-    function updateOpennessViz() { /* Sin cambios */ }
-    function updateVotingViz() { /* Sin cambios */ }
+    // (Las funciones updateMemberListViz, updatePurposeBalanceViz, etc. permanecen igual
+    // excepto updateTransparencyViz y updateKnowledgeTreeViz que se modificaron abajo)
 
-    /** Actualiza termómetro (CORREGIDO para bajar) */
+    /** Actualiza termómetro (CORREGIDO) */
     function updateTransparencyViz() {
         if (!transparencyMercury || !transparencyLevelText) return;
         let score = 0;
         const freqMap = { 'semestral': 1, 'trimestral': 2, 'continua': 3 };
         score += freqMap[governanceData.reporting_frequency] || 0;
-         // CORRECCIÓN: Acceder a los booleanos correctamente
+        // Acceder a los booleanos correctamente
         if (governanceData.public_access === true) score += 2;
         if (governanceData.external_audit === true) score += 2;
 
@@ -282,34 +284,35 @@ document.addEventListener('DOMContentLoaded', () => {
         transparencyLevelText.textContent = `Nivel de transparencia: ${levelText}`;
     }
 
-    function updateAutonomyViz() { /* Sin cambios */ }
-    function checkDependencyAlert() { /* Sin cambios */ }
-
-    /** Actualiza Árbol (Determinista) */
+    /** Actualiza Árbol (Determinista - CORREGIDO) */
     function updateKnowledgeTreeViz() {
-        if (!treeBranchesViz || !knowledgeImpactText) return;
+        if (!treeBranchesViz || !knowledgeImpactText || !knowledgeTreeViz) return;
         const activitiesCount = governanceData.education.length;
         treeBranchesViz.innerHTML = ''; // Limpiar ramas
 
-        // Posiciones predefinidas cerca del tronco (ajustar según tamaño de .tree-branches)
-        // Formato: [left%, top%]
+        // Posiciones predefinidas cerca del tronco (más juntas)
+        // Formato: [desplazamiento X desde centro, desplazamiento Y desde arriba] en px
+        // Ajustar estos valores si el tamaño del contenedor .tree-branches cambia
         const positions = [
-            [40, 15], [60, 25], [30, 35], [70, 45], [50, 55], [35, 65], [65, 75]
+            [0, 10], [-20, 30], [20, 30], [-10, 55], [10, 55], [-30, 75], [30, 75]
         ];
 
-        const branchCount = Math.min(activitiesCount, positions.length); // Limitar a posiciones definidas
+        const branchCount = Math.min(activitiesCount, positions.length);
+        const baseLeft = treeBranchesViz.offsetWidth / 2; // Centro X del contenedor de ramas
+        const branchSize = 50; // Tamaño aprox de la bola (para centrarla)
 
         for (let i = 0; i < branchCount; i++) {
             const branch = document.createElement('div');
             branch.className = 'branch';
-            const [left, top] = positions[i];
+            const [offsetX, offsetY] = positions[i];
 
-            branch.style.left = `calc(${left}% - 25px)`; // Centrar la bola (50px / 2)
-            branch.style.top = `calc(${top}% - 25px)`;  // Centrar la bola
-            branch.style.opacity = `${0.6 + i * 0.05}`; // Ligeramente más opaco al añadir
-            branch.style.transform = `scale(${0.8 + i * 0.05})`; // Ligeramente más grande
-            branch.style.zIndex = i; // Las nuevas encima
-             branch.style.backgroundColor = `hsl(${100 + i*5}, 60%, ${45 + i*2}%)`; // Liger cambio de tono
+            // Calcular posición final centrando la bola
+            branch.style.left = `${baseLeft + offsetX - branchSize / 2}px`;
+            branch.style.top = `${offsetY}px`; // Y relativo a la parte superior del contenedor
+            branch.style.opacity = `${0.6 + i * 0.05}`;
+            branch.style.transform = `scale(${0.8 + i * 0.05})`;
+            branch.style.zIndex = i; // Las más nuevas encima
+            branch.style.backgroundColor = `hsl(${100 + i*5}, 60%, ${45 + i*2}%)`;
 
             treeBranchesViz.appendChild(branch);
         }
@@ -320,75 +323,146 @@ document.addEventListener('DOMContentLoaded', () => {
         knowledgeImpactText.textContent = `Nivel de compromiso educativo: ${impactText}`;
     }
 
+    // (Las funciones updateCooperationViz, updateImpactViz, etc. permanecen igual)
+    function updateAutonomyViz() { /* Sin cambios */ }
+    function checkDependencyAlert() { /* Sin cambios */ }
     function updateCooperationViz() { /* Sin cambios */ }
     function updateImpactViz() { /* Sin cambios */ }
 
 
     // --- Funciones de Generación del Paso Final ---
 
-    function generateDashboard() { /* Sin cambios funcionales, usa getFriendlyName */ }
-    function generateDraftOutput() { /* Sin cambios funcionales, usa getFriendlyName y innerHTML */ }
-    function calculateAciScores() { /* Sin cambios funcionales */ }
-    function updateRadarChart() { /* Sin cambios funcionales */ }
+    function generateDashboard() {
+        if (!dashboardOutput) return;
+        // (Sin cambios funcionales, usa getFriendlyName)
+        let html = '<ul>';
+        html += `<li><strong>Propósito principal:</strong> <span>${governanceData.purpose.map(getFriendlyName).join(', ') || 'No definido'} (Balance: ${governanceData.purpose_balance}% comunitario)</span></li>`;
+        html += `<li><strong>Tipos miembros:</strong> <span>${governanceData.member_type.map(getFriendlyName).join(', ') || 'No definidos'}</span></li>`;
+        html += `<li><strong>Apertura (P1):</strong> <span>Nivel ${governanceData.openness_level}/100. Inclusión: ${getFriendlyName(governanceData.inclusion_strategy)}</span></li>`;
+        let votingText = getFriendlyName(governanceData.voting_structure);
+        if (governanceData.voting_structure === 'otro' && governanceData.other_voting_description) {
+            votingText += `: ${governanceData.other_voting_description}`;
+        }
+        html += `<li><strong>Voto (P2):</strong> <span>${votingText}. Transparencia: ${transparencyLevelText?.textContent.split(': ')[1] || 'N/A'}</span></li>`;
+        html += `<li><strong>Participación econ. (P3):</strong> <span>Contrib.: ${governanceData.contribution.map(getFriendlyName).join(', ')}. Excedentes: ${getFriendlyName(governanceData.surplus_priority)}</span></li>`;
+        html += `<li><strong>Autonomía (P4):</strong> <span>Nivel ${autonomyLevelText?.textContent.split(': ')[1] || 'N/A'}. Límite externo: ${governanceData.external_funding_limit}%</span></li>`;
+        html += `<li><strong>Educación (P5):</strong> <span>${governanceData.education.length} ${governanceData.education.length === 1 ? 'actividad seleccionada' : 'actividades seleccionadas'}.</span></li>`;
+        html += `<li><strong>Cooperación (P6):</strong> <span>Nivel ${getFriendlyName(governanceData.cooperation_level_radio)}. Áreas: ${governanceData.cooperation_area.length}</span></li>`;
+        html += `<li><strong>Interés comunidad (P7):</strong> <span>Foco: ${getFriendlyName(governanceData.community_focus_radio)}. Reinversión: ${governanceData.reinvestment.length} ${governanceData.reinvestment.length === 1 ? 'mecanismo' : 'mecanismos'}</span></li>`;
+        html += '</ul>';
+        dashboardOutput.innerHTML = html;
+    }
+
+    function generateDraftOutput() {
+        if (!draftOutput) return;
+        // (Sin cambios funcionales, usa getFriendlyName y innerHTML)
+        let htmlContent = `<h4>BORRADOR PRELIMINAR DE GOBERNANZA</h4>`;
+        htmlContent += `<strong>OBJETO Y FINES (Ref. P7):</strong>`;
+        htmlContent += `<ul><li>Fines principales: ${governanceData.purpose.map(getFriendlyName).join(', ') || 'Definir'}.</li>`;
+        htmlContent += `<li>Énfasis: ${governanceData.purpose_balance}% beneficio comunitario, ${100 - governanceData.purpose_balance}% retorno financiero.</li>`;
+        htmlContent += `<li>El interés por la comunidad local es ${getFriendlyName(governanceData.community_focus_radio)}.</li>`;
+        htmlContent += `<li>Mecanismos de reinversión comunitaria: ${governanceData.reinvestment.map(getFriendlyName).join(', ') || 'Ninguno definido'}.</li></ul>`;
+        htmlContent += `<strong>MIEMBROS (Ref. P1):</strong>`;
+        htmlContent += `<ul><li>Tipos de miembros admitidos: ${governanceData.member_type.map(getFriendlyName).join(', ') || 'Definir'}.</li>`;
+        htmlContent += `<li>Criterios elegibilidad: ${governanceData.criteria.map(getFriendlyName).join(', ') || 'Abierto (revisar)'}.</li>`;
+        htmlContent += `<li>Nivel de apertura/compromiso: ${governanceData.openness_level}/100.</li>`;
+        htmlContent += `<li>Estrategia de inclusión: ${getFriendlyName(governanceData.inclusion_strategy)}.</li></ul>`;
+        htmlContent += `<strong>CONTROL DEMOCRÁTICO (Ref. P2):</strong>`;
+        let votingText = getFriendlyName(governanceData.voting_structure);
+        if (governanceData.voting_structure === 'otro' && governanceData.other_voting_description) {
+            votingText += `: "${governanceData.other_voting_description}"`;
+        }
+        htmlContent += `<ul><li>Estructura de voto: ${votingText}.</li>`;
+        htmlContent += `<li>Órgano de gobierno elegido por: ${getFriendlyName(governanceData.governing_body)}. ${governanceData.reserved_seats ? 'Con puestos reservados.' : ''}</li>`;
+        htmlContent += `<li>Transparencia: Informes ${getFriendlyName(governanceData.reporting_frequency)}. Decisiones ${governanceData.public_access ? 'accesibles' : 'no accesibles'}. Auditoría externa: ${governanceData.external_audit ? 'Sí' : 'No'}.</li></ul>`;
+        htmlContent += `<strong>PARTICIPACIÓN ECONÓMICA (Ref. P3):</strong>`;
+        htmlContent += `<ul><li>Formas de contribución: ${governanceData.contribution.map(getFriendlyName).join(', ') || 'Definir'}.</li>`;
+        htmlContent += `<li>Uso prioritario de excedentes: ${getFriendlyName(governanceData.surplus_priority)}.</li>`;
+        htmlContent += `<li>Incentivos a la participación: ${governanceData.incentive.map(getFriendlyName).join(', ') || 'Ninguno'}.</li></ul>`;
+        htmlContent += `<strong>AUTONOMÍA E INDEPENDENCIA (Ref. P4):</strong>`;
+        htmlContent += `<ul><li>Control estratégico: ${getFriendlyName(governanceData.decision_control)}.</li>`;
+        htmlContent += `<li>Límite a participación externa: ${governanceData.external_funding_limit}%.</li>`;
+        htmlContent += `<li>${governanceData.veto_rights_members ? 'Con' : 'Sin'} derecho de veto de miembros sobre acuerdos externos.</li>`;
+        htmlContent += `<li>${governanceData.autonomy_clause ? 'Se incluirá' : 'No se incluirá'} cláusula explícita de autonomía.</li></ul>`;
+        htmlContent += `<strong>EDUCACIÓN E INFORMACIÓN (Ref. P5):</strong>`;
+        htmlContent += `<ul><li>Actividades previstas: ${governanceData.education.map(getFriendlyName).join(', ') || 'Ninguna definida'}.</li></ul>`;
+        htmlContent += `<strong>COOPERACIÓN (Ref. P6):</strong>`;
+        htmlContent += `<ul><li>Nivel de cooperación buscado: ${getFriendlyName(governanceData.cooperation_level_radio)}.</li>`;
+        htmlContent += `<li>Áreas de cooperación potenciales: ${governanceData.cooperation_area.map(getFriendlyName).join(', ') || 'Ninguna definida'}.</li></ul>`;
+        htmlContent += `<em>--- Fin del Borrador Preliminar ---</em>`;
+        draftOutput.innerHTML = htmlContent.replace(/\n/g, ''); // Renderizar como HTML
+    }
+
+
+    function calculateAciScores() { /* Sin cambios */ }
+    function updateRadarChart() { /* Sin cambios */ }
 
     // --- Funciones de Control ---
 
-    /** Resetea el formulario (CORREGIDO Y MEJORADO) */
+    /** Resetea el formulario (CORREGIDO Y COMPLETADO) */
     function resetForm() {
         if (confirm('¿Estás seguro de que quieres reiniciar todo el diseño? Se perderán todos los cambios.')) {
             // 1. Resetear Estado Interno
             governanceData = JSON.parse(JSON.stringify(initialGovernanceData));
 
-            // 2. Resetear Formulario HTML Nativamente (útil para muchos campos)
-             if (mainForm) mainForm.reset();
+            // 2. Resetear Formulario HTML Nativamente
+            if (mainForm) mainForm.reset(); // Intenta resetear nativamente
 
-            // 3. Iterar y establecer explícitamente valores iniciales (más robusto)
+            // 3. Iterar y establecer explícitamente valores iniciales VISUALES
             formElements.forEach(element => {
                 const name = element.name;
-                if (!name || !initialGovernanceData.hasOwnProperty(name)) return; // Saltar si no tiene nombre o no está en estado inicial
+                if (!name || !initialGovernanceData.hasOwnProperty(name)) return;
 
                 const initialValue = initialGovernanceData[name];
                 const type = element.type;
 
-                if (type === 'checkbox') {
-                    if (typeof initialValue === 'boolean') {
-                        element.checked = initialValue;
-                    } else if (Array.isArray(initialValue)) {
-                        element.checked = initialValue.includes(element.value);
-                         // Caso especial 'ninguno' incentivo
-                        if (name === 'incentive' && initialValue.includes('ninguno')) {
-                             if (element.value === 'ninguno') element.checked = true;
-                             else element.checked = false;
+                try { // Añadir try-catch por si algún elemento no existe
+                    if (type === 'checkbox') {
+                        if (typeof initialValue === 'boolean') {
+                            element.checked = initialValue;
+                        } else if (Array.isArray(initialValue)) {
+                            element.checked = initialValue.includes(element.value);
+                            // Caso especial 'ninguno'
+                            if (name === 'incentive' && initialValue.includes('ninguno')) {
+                                element.checked = (element.value === 'ninguno');
+                            }
+                        } else {
+                            element.checked = false; // Default si no es booleano ni array
                         }
-                    } else {
-                         element.checked = false; // Default para checkboxes no encontrados
+                    } else if (type === 'radio') {
+                        element.checked = (element.value === initialValue);
+                    } else if (element.tagName === 'TEXTAREA') { // Identificar textarea
+                        element.value = initialValue;
                     }
-                } else if (type === 'radio') {
-                     element.checked = (element.value === initialValue);
-                } else { // Incluye text, number, range, select-one, textarea
-                    element.value = initialValue;
-                     // Disparar evento input para sliders (actualiza % visual)
-                     if (type === 'range') {
-                         element.dispatchEvent(new Event('input', { bubbles: true }));
-                     }
-                }
+                    else { // text, number, range, select-one
+                        element.value = initialValue;
+                        // Disparar evento 'input' para sliders para actualizar su track visual
+                        if (type === 'range') {
+                            element.dispatchEvent(new Event('input', { bubbles: true }));
+                        }
+                    }
+                 } catch(e) {
+                     console.warn(`Error reseteando elemento ${name}: ${e}`);
+                 }
             });
 
             // 4. Resetear elementos específicos adicionales
-            toggleOtherVotingInput(false); // Ocultar campo "Otro"
-            if(otherVotingInput) otherVotingInput.value = ''; // Limpiar textarea
+            toggleOtherVotingInput(false);
+            if(otherVotingInput) otherVotingInput.value = '';
 
             // 5. Actualizar todas las visualizaciones al estado reseteado
-            updateAllVisualizations();
+            // Usar requestAnimationFrame para asegurar que el DOM está listo tras el reset
+             requestAnimationFrame(() => {
+                updateAllVisualizations();
+                 // 6. Ir al Primer Paso (después de actualizar visuales)
+                showStep(0);
+                 // 7. Scroll al inicio de la página
+                 window.scrollTo({ top: 0, behavior: 'smooth' });
+             });
 
-            // 6. Ir al Primer Paso
-            showStep(0);
 
-            // 7. Scroll al inicio de la página
-            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     }
-
 
     // --- Event Listeners ---
 
@@ -397,7 +471,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (currentStep < totalSteps - 1) {
                 showStep(currentStep + 1);
             } else {
-                alert('¡Diseño completado! Revisa el resumen y el borrador.\nPuedes descargar el borrador como PDF.');
+                // Ya no se deshabilita, pero podemos mostrar un mensaje final
+                 alert('¡Diseño completado! Revisa el resumen y el borrador.\nPuedes descargar el borrador como PDF.');
             }
         });
     }
@@ -410,79 +485,67 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    if (resetBtn) {
+     if (resetBtn) {
          resetBtn.addEventListener('click', resetForm);
-    }
+     }
+
 
     // Listeners para formulario
     formElements.forEach(element => {
-        const eventType = (element.type === 'range' || element.type === 'number' || element.type === 'textarea') ? 'input' : 'change';
+        // Usar 'input' para respuesta inmediata en range, number, textarea
+        // Usar 'change' para select, radio, checkbox (cuando pierde el foco o cambia selección)
+        const eventType = (element.type === 'range' || element.type === 'number' || element.tagName === 'TEXTAREA') ? 'input' : 'change';
         element.addEventListener(eventType, updateGovernanceData);
     });
 
-    // Listener Descarga PDF (CORREGIDO error $1)
+
+    // Listener Descarga PDF (CORREGIDO error $1 y formato)
     if (downloadBtn) {
         downloadBtn.addEventListener('click', () => {
             try {
                 if (typeof jspdf === 'undefined' || typeof jspdf.jsPDF === 'undefined') {
-                    alert('Error: La librería jsPDF no se ha cargado correctamente.');
-                    console.error("jsPDF no está definido.");
-                    return;
+                    alert('Error: La librería jsPDF no se ha cargado correctamente.'); console.error("jsPDF no está definido."); return;
                 }
                 const { jsPDF } = jspdf;
-                const doc = new jsPDF({ // Orientación y formato
-                     orientation: 'p', // portrait
-                     unit: 'mm', // milímetros
-                     format: 'a4' // tamaño A4
-                 });
+                const doc = new jsPDF({ orientation: 'p', unit: 'mm', format: 'a4' });
                 const outputElement = draftOutput;
 
-                if (!outputElement) {
-                     alert("Error: No se encontró el contenido del borrador.");
-                     return;
-                }
+                if (!outputElement) { alert("Error: No se encontró el contenido del borrador."); return; }
 
-                // Convertir HTML a texto plano para jsPDF (CORREGIDO)
+                // Convertir HTML a texto plano mejorado para PDF
                 let textContent = outputElement.innerHTML;
 
-                // Reemplazar etiquetas con formato de texto
+                // 1. Reemplazar etiquetas con formato y saltos de línea
                 textContent = textContent
-                    // Títulos H4 -> *** TÍTULO *** con saltos de línea
-                    .replace(/<h4>(.*?)<\/h4>/gi, (match, p1) => `\n*** ${p1.toUpperCase()} ***\n\n`)
-                     // Strong -> TÍTULO\n-------\n
-                    .replace(/<strong>(.*?)<\/strong>/gi, (match, p1) => `\n${p1}\n${'-'.repeat(p1.length)}\n`)
-                    // BR y fin de P/UL/LI -> Salto de línea
-                    .replace(/<br\s*[\/]?>|<\/p>|<\/ul>|<\/li>/gi, "\n")
-                    // LI -> Guión al inicio
-                    .replace(/<li>/gi, "- ")
-                    // Quitar el resto de etiquetas HTML
-                    .replace(/<[^>]*>/g, "")
-                    // Decodificar entidades HTML
-                    .replace(/&nbsp;/g, " ").replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">")
-                    // Limpiar saltos de línea múltiples y espacios extra
-                    .replace(/\n{3,}/g, "\n\n").trim();
+                    .replace(/<h4>(.*?)<\/h4>/gi, (match, p1) => `\n\n*** ${p1.toUpperCase().trim()} ***\n\n`)
+                    .replace(/<strong>(.*?)<\/strong>/gi, (match, p1) => `\n${p1.trim()}\n${'-'.repeat(p1.trim().length)}\n`)
+                    .replace(/<br\s*[\/]?>|<\/p>|<\/ul>/gi, "\n") // BR, fin P, fin UL -> Salto línea
+                    .replace(/<\/li>/gi, "\n") // Fin LI -> Salto línea
+                    .replace(/<li>/gi, "- ")   // LI -> Guión
+                    .replace(/<[^>]*>/g, "")   // Quitar resto de etiquetas HTML
+                    .replace(/&nbsp;/g, " ").replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">") // Entidades HTML
+                    .replace(/\n{3,}/g, "\n\n") // Normalizar saltos de línea múltiples
+                    .trim(); // Limpiar espacios inicio/final
 
                 doc.setFontSize(11);
-                // Márgenes (izq, sup) en mm
                 const margin = 15;
-                 // Ancho máximo del texto en mm (A4 width 210mm - 2*margin)
                 const textWidth = doc.internal.pageSize.getWidth() - (margin * 2);
 
+                // Generar texto con auto-wrap
                 const splitText = doc.splitTextToSize(textContent, textWidth);
-                doc.text(splitText, margin, margin); // Añadir texto con margen
+                doc.text(splitText, margin, margin); // Añadir texto con márgenes
 
                 doc.save('borrador_gobernanza_energetica.pdf');
 
             } catch (error) {
                 console.error("Error al generar el PDF:", error);
-                // Mostrar un error más específico si es posible
-                 alert(`Hubo un error al intentar generar el PDF: ${error.message || error}. Revisa la consola.`);
+                alert(`Hubo un error al intentar generar el PDF: ${error.message || error}. Revisa la consola.`);
             }
         });
     }
 
     // --- Inicialización ---
-    updateAllVisualizations(); // Asegurar visualizaciones iniciales correctas
-    showStep(0); // Mostrar el primer paso
+    updateAllVisualizations(); // Actualizar visuales iniciales
+    showStep(0); // Mostrar primer paso
 
 }); // Fin del DOMContentLoaded
