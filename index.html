@@ -5,12 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Energea Design Lab - Constructor de Gobernanza Comunitaria</title>
     <link rel="stylesheet" href="style.css">
-    </head>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+
+</head>
 <body>
 
     <header>
-        <h1>Energea Design Lab</h1>
-        <p>Diseña la Gobernanza de tu Comunidad Energética</p>
+        <h1>Energea Design Lab <span class="beta-tag">Beta</span></h1>
+        <p>Diseña Interactivamente la Gobernanza de tu Comunidad Energética</p>
     </header>
 
     <main id="governance-constructor">
@@ -26,101 +31,188 @@
                 <h2>Paso 1: Define tu Comunidad</h2>
 
                 <div class="module">
-                    <h3><span class="principle-tag">P7</span> ¿Cuál es nuestro Propósito Principal?</h3>
-                    <p>Selecciona y prioriza los objetivos clave de tu comunidad.</p>
-                    <div id="purpose-selector" class="interactive-area">
-                        <p>[Placeholder: Iconos de Beneficios Comunitarios (solar, ahorro, etc.)]</p>
+                    <h3><span class="principle-tag">P7</span> Propósito Principal y Beneficios</h3>
+                    <p>Selecciona los objetivos clave. ¿Cuál será el foco principal?</p>
+                    <div id="purpose-selector" class="interactive-area grid-checkboxes">
+                        <label><input type="checkbox" name="purpose" value="reducir_facturas"> Reducir Facturas Energéticas</label>
+                        <label><input type="checkbox" name="purpose" value="energia_limpia"> Generar Energía Limpia Local</label>
+                        <label><input type="checkbox" name="purpose" value="desarrollo_local"> Fomentar Desarrollo Local</label>
+                        <label><input type="checkbox" name="purpose" value="lucha_pobreza"> Luchar contra Pobreza Energética</label>
+                        <label><input type="checkbox" name="purpose" value="infraestructura"> Invertir en Infraestructura Pública</label>
+                        <label><input type="checkbox" name="purpose" value="educacion"> Educación y Formación Ambiental</label>
+                        <label><input type="checkbox" name="purpose" value="flexibilidad"> Aportar Flexibilidad al Sistema</label>
                     </div>
-                    <div id="purpose-balance" class="interactive-area">
-                        <label>Balance: Beneficio Comunitario vs. Ganancia Financiera</label>
-                        <div class="balance-bar-placeholder">[Barra de Balance]</div>
+                    <div id="purpose-balance" class="interactive-area slider-container">
+                        <label for="purpose-balance-slider">Balance Énfasis:</label>
+                        <span class="slider-label">Beneficio Comunitario</span>
+                        <input type="range" id="purpose-balance-slider" name="purpose_balance" min="0" max="100" value="70">
+                        <span class="slider-label">Retorno Financiero Miembros</span>
+                        <span id="purpose-balance-value" class="slider-value">70% Comunitario</span>
                     </div>
                 </div>
 
                 <div class="module">
-                    <h3><span class="principle-tag">P1, P2, P4</span> ¿Quiénes Somos?</h3>
-                    <p>Define los tipos de miembros que formarán parte.</p>
-                    <div id="member-selector" class="interactive-area">
-                         <p>[Placeholder: Selectores de Tipos de Miembros (hogares, pymes, etc.)]</p>
+                    <h3><span class="principle-tag">P1,P2,P4</span> Tipos de Miembros</h3>
+                    <p>¿Quiénes podrán formar parte de la comunidad?</p>
+                    <div id="member-selector" class="interactive-area grid-checkboxes">
+                         <label><input type="checkbox" name="member_type" value="hogares"> Hogares</label>
+                         <label><input type="checkbox" name="member_type" value="hogares_vulnerables"> Hogares Vulnerables</label>
+                         <label><input type="checkbox" name="member_type" value="pymes"> PYMEs / Comercios Locales</label>
+                         <label><input type="checkbox" name="member_type" value="municipio"> Ayuntamiento / Entidad Local</label>
+                         <label><input type="checkbox" name="member_type" value="otros"> Otros (Asociaciones, etc.)</label>
                     </div>
                     <div id="member-composition-viz" class="visualization-area">
-                        <p>[Placeholder: Visualización de Composición de Miembros]</p>
+                        <p>Composición Seleccionada:</p>
+                        <ul id="member-list-viz"><li>(Selecciona tipos de miembros)</li></ul>
                     </div>
                 </div>
 
                 <div class="module">
-                    <h3>¿Qué Haremos?</h3>
-                    <p>Selecciona las actividades principales de la comunidad.</p>
-                    <div id="activity-selector" class="interactive-area">
-                         <p>[Placeholder: Selectores de Actividades (FV, carga VE, etc.)]</p>
+                    <h3>Actividades Principales</h3>
+                    <p>¿Qué hará principalmente la comunidad energética?</p>
+                    <div id="activity-selector" class="interactive-area grid-checkboxes">
+                         <label><input type="checkbox" name="activity" value="generacion_fv"> Generación Solar FV</label>
+                         <label><input type="checkbox" name="activity" value="autoconsumo"> Autoconsumo Compartido</label>
+                         <label><input type="checkbox" name="activity" value="recarga_ve"> Puntos de Recarga VE</label>
+                         <label><input type="checkbox" name="activity" value="red_calor"> Red de Calor/Frío Renovable</label>
+                         <label><input type="checkbox" name="activity" value="eficiencia"> Asesoramiento Eficiencia Energética</label>
+                         <label><input type="checkbox" name="activity" value="almacenamiento"> Almacenamiento Energía</label>
                     </div>
                 </div>
             </section>
 
             <section id="step-2" class="step">
-                <h2>Paso 2: Puertas Abiertas y Compromiso <span class="principle-tag">P1</span></h2>
+                <h2>Paso 2: Adhesión Voluntaria y Abierta <span class="principle-tag">P1</span></h2>
 
                 <div class="module">
-                    <h3>Nivel de Apertura vs. Compromiso</h3>
-                    <div id="openness-slider" class="interactive-area">
-                        <label>Facilidad de Entrada <input type="range" min="0" max="100" value="50"> Alto Compromiso</label>
-                         <p class="dynamic-text">[Explicación dinámica basada en el slider]</p>
+                    <h3>Apertura vs. Compromiso</h3>
+                    <div id="openness-slider" class="interactive-area slider-container">
+                         <label for="openness-level">Nivel de Apertura:</label>
+                         <span class="slider-label">Máxima Facilidad (Pocos requisitos)</span>
+                         <input type="range" id="openness-level" name="openness_level" min="0" max="100" value="60">
+                         <span class="slider-label">Alto Compromiso (Requisitos específicos)</span>
+                         <p id="openness-level-text" class="dynamic-text">Nivel intermedio de requisitos.</p>
                     </div>
                 </div>
                 <div class="module">
-                    <h3>Criterios de Elegibilidad</h3>
-                    <div id="eligibility-criteria" class="interactive-area">
-                        <p>[Placeholder: Selectores de Criterios (geográfico, técnico, inversión)]</p>
+                    <h3>Criterios de Elegibilidad (No discriminatorios)</h3>
+                    <div id="eligibility-criteria" class="interactive-area grid-checkboxes">
+                        <label><input type="checkbox" name="criteria" value="geografico"> Residencia/Ubicación Geográfica</label>
+                        <label><input type="checkbox" name="criteria" value="tecnico"> Conexión Técnica (ej. misma red BT)</label>
+                        <label><input type="checkbox" name="criteria" value="inversion"> Aportación de Capital Mínima</label>
+                        <label><input type="checkbox" name="criteria" value="consumo"> Ser Consumidor de Energía</label>
+                        <label><input type="checkbox" name="criteria" value="participacion"> Compromiso de Participación Activa</label>
                     </div>
                 </div>
                  <div class="module">
                     <h3>Inclusión y Diversidad</h3>
-                    <div id="inclusion-lever" class="interactive-area">
-                        <p>[Placeholder: Palanca de Estrategias de Inclusión]</p>
+                    <p>¿Se implementarán medidas activas para fomentar la inclusión?</p>
+                     <div id="inclusion-lever" class="interactive-area radio-group">
+                        <label><input type="radio" name="inclusion_strategy" value="ninguna" checked> Sin medidas específicas</label>
+                        <label><input type="radio" name="inclusion_strategy" value="basica"> Medidas básicas (difusión amplia)</label>
+                        <label><input type="radio" name="inclusion_strategy" value="activa"> Medidas activas (cuotas reducidas, apoyo, outreach)</label>
                     </div>
                 </div>
                 <div class="module">
-                    <h3>Miembro vs. Cliente</h3>
-                    <div id="member-vs-client-viz" class="visualization-area">
-                        <p>[Placeholder: Visualización Miembro vs. Cliente]</p>
+                    <h3>Miembro vs. Cliente (Visualización Conceptual)</h3>
+                    <div id="member-vs-client-viz" class="visualization-area comparison">
+                        <div class="comparison-item">
+                            <h4>Miembro</h4>
+                            <ul><li>Participa</li><li>Decide (Voto)</li><li>Invierte</li><li>Beneficios/Deberes</li></ul>
+                        </div>
+                        <div class="comparison-item">
+                            <h4>Cliente</h4>
+                            <ul><li>Consume</li><li>No decide</li><li>Paga servicio</li><li>Puede cambiar</li></ul>
+                        </div>
                     </div>
+                    <p>La comunidad se centrará en la figura del <strong>miembro</strong>.</p>
                 </div>
             </section>
 
             <section id="step-3" class="step">
-                 <h2>Paso 3: El Poder de Decidir Juntos <span class="principle-tag">P2</span></h2>
+                 <h2>Paso 3: Control Democrático de los Miembros <span class="principle-tag">P2</span></h2>
                  <div class="module">
-                     <h3>Estructura de Voto</h3>
-                     <div id="voting-balance" class="interactive-area">
-                         <p>[Placeholder: Balanza Democrática (1M1V vs. Ponderado)]</p>
+                     <h3>Estructura de Voto Principal</h3>
+                     <div id="voting-balance" class="interactive-area radio-group">
+                         <label><input type="radio" name="voting_structure" value="1m1v" checked> <strong>Un Miembro, Un Voto:</strong> Igualdad total.</label>
+                         <label><input type="radio" name="voting_structure" value="ponderado_tipo"> Voto ponderado por <strong>Tipo de Miembro</strong> (Hogar=1, Pyme=X...)</label>
+                         <label><input type="radio" name="voting_structure" value="ponderado_aportacion"> Voto ponderado por <strong>Aportación/Consumo</strong></label>
+                         <label><input type="radio" name="voting_structure" value="otro"> Otro sistema (requiere definición detallada)</label>
                      </div>
+                     <div class="visualization-placeholder" id="voting-viz">
+                        <div class="balance-scale"><div class="balance-beam" id="vote-beam"></div><div class="balance-base"></div></div>
+                        <p id="voting-viz-text">Seleccionado: Un Miembro, Un Voto</p>
+                    </div>
                  </div>
                  <div class="module">
-                     <h3>Representación de Grupos</h3>
+                     <h3>Representación y Órganos de Gobierno</h3>
+                     <p>¿Cómo se eligen los representantes (Consejo Rector/Junta)?</p>
                      <div id="group-representation" class="interactive-area">
-                         <p>[Placeholder: Selector de Representación de Grupos]</p>
+                          <label for="governing_body">Elección Principal:</label>
+                          <select name="governing_body" id="governing_body">
+                              <option value="asamblea_general" selected>Elección directa por Asamblea General</option>
+                              <option value="representantes_bloque">Elección por bloques/tipos de miembros</option>
+                              <option value="combinado">Sistema combinado</option>
+                          </select>
+                          <label class="checkbox-label"><input type="checkbox" name="reserved_seats"> ¿Habrá puestos reservados para ciertos tipos de miembros (ej. vulnerables, fundadores)?</label>
                      </div>
                  </div>
                   <div class="module">
                      <h3>Transparencia y Rendición de Cuentas</h3>
+                     <p>¿Con qué frecuencia y cómo informará el órgano de gobierno?</p>
                      <div id="accountability-thermometer" class="interactive-area">
-                         <p>[Placeholder: Termómetro de Transparencia]</p>
+                        <label for="reporting_frequency">Frecuencia Informes/Asambleas:</label>
+                        <select name="reporting_frequency" id="reporting_frequency">
+                            <option value="anual">Anual</option>
+                            <option value="semestral" selected>Semestral</option>
+                            <option value="trimestral">Trimestral</option>
+                            <option value="continua">Continua (web, etc.)</option>
+                        </select>
+                        <label class="checkbox-label"><input type="checkbox" name="public_access" checked> ¿Actas/Decisiones accesibles a todos los miembros?</label>
+                        <label class="checkbox-label"><input type="checkbox" name="external_audit"> ¿Auditoría externa periódica?</label>
+                        <div class="visualization-placeholder">
+                             <div class="thermometer">
+                                <div class="thermometer-mercury" id="transparency-mercury"></div>
+                                <div class="thermometer-base"></div>
+                            </div>
+                            <p id="transparency-level-text">Nivel de Transparencia: Alto</p>
+                        </div>
                      </div>
                  </div>
             </section>
 
             <section id="step-4" class="step">
-                 <h2>Paso 4: Participación Económica Justa <span class="principle-tag">P3</span></h2>
+                 <h2>Paso 4: Participación Económica de los Miembros <span class="principle-tag">P3</span></h2>
                  <div class="module">
-                     <h3>¿Cómo Contribuirán los Miembros?</h3>
-                     <div id="contribution-wheel" class="interactive-area">
-                         <p>[Placeholder: Rueda de Contribución]</p>
+                     <h3>Formas de Contribución Económica</h3>
+                     <p>¿Cómo aportarán los miembros al capital o funcionamiento?</p>
+                     <div id="contribution-selector" class="interactive-area grid-checkboxes">
+                         <label><input type="checkbox" name="contribution" value="cuota_entrada" checked> Cuota de Entrada/Inscripción</label>
+                         <label><input type="checkbox" name="contribution" value="aportacion_capital"> Aportación de Capital (participaciones)</label>
+                         <label><input type="checkbox" name="contribution" value="cuota_periodica"> Cuota Periódica (mantenimiento)</label>
+                         <label><input type="checkbox" name="contribution" value="aportacion_especie"> Aportación en Especie (ej. cesión tejado)</label>
+                         <label><input type="checkbox" name="contribution" value="voluntariado"> Tiempo de Voluntariado</label>
                      </div>
                  </div>
                  <div class="module">
-                     <h3>Incentivos para la Membresía</h3>
-                     <div id="incentive-magnet" class="interactive-area">
-                          <p>[Placeholder: Área de Arrastrar y Soltar Incentivos]</p>
+                     <h3>Uso de Excedentes/Beneficios</h3>
+                      <p>Si se generan excedentes, ¿cuál será la prioridad?</p>
+                     <div id="surplus-use" class="interactive-area radio-group">
+                         <label><input type="radio" name="surplus_priority" value="reparto_miembros"> Reparto entre miembros (según participación/actividad)</label>
+                         <label><input type="radio" name="surplus_priority" value="reserva_obligatoria"> Dotar Reservas Obligatorias/Voluntarias</label>
+                         <label><input type="radio" name="surplus_priority" value="reinversion_comunidad" checked> Reinversión en Proyectos/Beneficios Comunitarios (P7)</label>
+                         <label><input type="radio" name="surplus_priority" value="combinado"> Combinación de las anteriores</label>
+                     </div>
+                 </div>
+                 <div class="module">
+                     <h3>Incentivos a la Participación Activa</h3>
+                     <p>¿Se incentivará a los miembros por participar más?</p>
+                     <div id="incentive-selector" class="interactive-area grid-checkboxes">
+                          <label><input type="checkbox" name="incentive" value="descuento_factura"> Descuentos adicionales en factura</label>
+                          <label><input type="checkbox" name="incentive" value="prioridad_servicios"> Prioridad en nuevos servicios (ej. cargador VE)</label>
+                          <label><input type="checkbox" name="incentive" value="retorno_diferenciado"> Retorno económico diferenciado (si aplica)</label>
+                          <label><input type="checkbox" name="incentive" value="reconocimiento"> Reconocimiento público/social</label>
+                          <label><input type="checkbox" name="incentive" value="ninguno"> Sin incentivos específicos (igual para todos)</label>
                      </div>
                  </div>
             </section>
@@ -128,38 +220,162 @@
             <section id="step-5" class="step">
                  <h2>Paso 5: Autonomía e Independencia <span class="principle-tag">P4</span></h2>
                   <div class="module">
-                     <h3>Fortaleciendo la Autonomía</h3>
-                     <div id="autonomy-shield" class="interactive-area">
-                         <p>[Placeholder: Escudo de Autonomía]</p>
+                     <h3>Control y Toma de Decisiones</h3>
+                      <p>Asegurar que la comunidad es controlada por sus miembros.</p>
+                     <div class="interactive-area radio-group">
+                        <label><input type="radio" name="decision_control" value="miembros_exclusivo" checked> Decisiones estratégicas exclusivas de la Asamblea General</label>
+                        <label><input type="radio" name="decision_control" value="miembros_mayoritario"> Control mayoritario de los miembros en todas las decisiones</label>
+                        <label><input type="radio" name="decision_control" value="externos_consultivo"> Participación externa sólo consultiva/técnica</label>
                      </div>
-                     <div id="dependency-alert" class="alert-area">
+                 </div>
+                 <div class="module">
+                     <h3>Relación con Entidades Externas (Inversores, Administraciones)</h3>
+                     <div id="external-relations" class="interactive-area">
+                        <label for="external_funding_limit">Límite a la financiación/participación externa (% del capital total):</label>
+                        <input type="number" name="external_funding_limit" id="external_funding_limit" value="25" min="0" max="75" step="5"> %
+                        <p class="dynamic-text">Un límite bajo refuerza la autonomía.</p>
+                        <label class="checkbox-label"><input type="checkbox" name="veto_rights_members"> ¿Derecho de veto de los miembros sobre acuerdos clave con externos?</label>
+                        <label class="checkbox-label"><input type="checkbox" name="autonomy_clause" checked> Incluir cláusula explícita de autonomía en estatutos</label>
+                     </div>
+                     <div class="visualization-placeholder">
+                         <div class="autonomy-shield" id="autonomy-shield-viz">
+                            <div class="shield-layer" id="shield-layer-1"></div>
+                            <div class="shield-layer" id="shield-layer-2"></div>
+                            <div class="shield-layer" id="shield-layer-3"></div>
+                            <span>AUTONOMÍA</span>
                          </div>
+                         <p id="autonomy-level-text">Nivel de Autonomía: Alto</p>
+                    </div>
+                     <div id="dependency-alert" class="alert-area hidden">
+                         ⚠️ ¡Atención! Un alto nivel de dependencia externa podría comprometer la autonomía. Revisa las condiciones.
+                     </div>
                  </div>
              </section>
 
-             <section id="step-final" class="step">
-                <h2>Paso Final: Revisa y Refina tu Gobernanza</h2>
+            <section id="step-6" class="step">
+                <h2>Paso 6: Educación, Formación e Información <span class="principle-tag">P5</span></h2>
+                <div class="module">
+                    <h3>Actividades de Educación y Formación</h3>
+                    <p>¿Qué acciones se realizarán para informar y capacitar?</p>
+                    <div id="education-activities" class="interactive-area grid-checkboxes">
+                        <label><input type="checkbox" name="education" value="info_miembros" checked> Información regular a miembros sobre funcionamiento y energía</label>
+                        <label><input type="checkbox" name="education" value="formacion_gobierno"> Formación para miembros del órgano de gobierno</label>
+                        <label><input type="checkbox" name="education" value="talleres_publico"> Talleres/Charlas para la comunidad local</label>
+                        <label><input type="checkbox" name="education" value="material_divulgativo"> Creación de material divulgativo (web, folletos)</label>
+                        <label><input type="checkbox" name="education" value="colaboracion_escuelas"> Colaboración con centros educativos</label>
+                    </div>
+                </div>
+                 <div class="module">
+                     <h3>Impacto del Conocimiento (Visualización)</h3>
+                     <div class="visualization-placeholder">
+                         <div class="knowledge-tree" id="knowledge-tree-viz">
+                             <div class="tree-trunk"></div>
+                             <div class="tree-branches" id="tree-branches-viz">
+                                 <div class="branch"></div>
+                             </div>
+                             <div class="tree-base">EDUCACIÓN</div>
+                         </div>
+                         <p id="knowledge-impact-text">Nivel de compromiso educativo: Moderado</p>
+                     </div>
+                 </div>
+            </section>
+
+            <section id="step-7" class="step">
+                 <h2>Paso 7: Cooperación entre Cooperativas (y Comunidades) <span class="principle-tag">P6</span></h2>
+                  <div class="module">
+                     <h3>Nivel de Cooperación Inter-Comunitaria</h3>
+                     <p>¿Se buscará activamente la colaboración con otras comunidades energéticas?</p>
+                     <div id="cooperation-level" class="interactive-area radio-group">
+                        <label><input type="radio" name="cooperation_level_radio" value="baja"> Cooperación baja o puntual</label>
+                        <label><input type="radio" name="cooperation_level_radio" value="media" checked> Cooperación moderada (intercambio de información)</label>
+                        <label><input type="radio" name="cooperation_level_radio" value="alta"> Cooperación alta (proyectos conjuntos, redes)</label>
+                    </div>
+                 </div>
+                  <div class="module">
+                     <h3>Áreas de Cooperación Potenciales</h3>
+                     <div id="cooperation-areas" class="interactive-area grid-checkboxes">
+                         <label><input type="checkbox" name="cooperation_area" value="conocimiento"> Intercambio de conocimiento y buenas prácticas</label>
+                         <label><input type="checkbox" name="cooperation_area" value="compras_conjuntas"> Compras conjuntas (ej. paneles solares)</label>
+                         <label><input type="checkbox" name="cooperation_area" value="proyectos_conjuntos"> Desarrollo de proyectos conjuntos</label>
+                         <label><input type="checkbox" name="cooperation_area" value="representacion"> Representación e incidencia política conjunta</label>
+                         <label><input type="checkbox" name="cooperation_area" value="servicios_compartidos"> Servicios técnicos o administrativos compartidos</label>
+                     </div>
+                     <div class="visualization-placeholder">
+                          <div class="cooperation-map">
+                            <div class="map-node self">Tu Comunidad</div>
+                            <div class="map-link" id="coop-link-1"></div>
+                            <div class="map-node other" id="coop-node-1">Otra CE</div>
+                            <div class="map-link" id="coop-link-2"></div>
+                            <div class="map-node other" id="coop-node-2">Red Local</div>
+                          </div>
+                          <p id="cooperation-viz-text">Nivel de interconexión: Moderado</p>
+                      </div>
+                 </div>
+            </section>
+
+            <section id="step-8" class="step">
+                 <h2>Paso 8: Interés por la Comunidad (Local) <span class="principle-tag">P7</span></h2>
+                 <div class="module">
+                     <h3>Prioridad del Beneficio Comunitario</h3>
+                     <p>Reafirmar el foco en los beneficios para la comunidad local más allá de los miembros.</p>
+                     <div id="community-focus" class="interactive-area radio-group">
+                         <label><input type="radio" name="community_focus_radio" value="secundario"> Beneficio comunitario secundario al de miembros</label>
+                         <label><input type="radio" name="community_focus_radio" value="importante"> Beneficio comunitario importante, al mismo nivel</label>
+                         <label><input type="radio" name="community_focus_radio" value="primario" checked> Beneficio comunitario como fin primario</label>
+                     </div>
+                 </div>
+                 <div class="module">
+                     <h3>Mecanismos de Reinversión en la Comunidad</h3>
+                     <p>¿Cómo se materializará el interés por la comunidad?</p>
+                     <div id="reinvestment-mechanisms" class="interactive-area grid-checkboxes">
+                         <label><input type="checkbox" name="reinvestment" value="proyectos_locales" checked> Financiación directa de proyectos locales (sociales, ambientales)</label>
+                         <label><input type="checkbox" name="reinvestment" value="tarifas_sociales"> Tarifas energéticas sociales para colectivos vulnerables</label>
+                         <label><input type="checkbox" name="reinvestment" value="infraestructura_publica"> Inversión en infraestructura energética pública local</label>
+                         <label><input type="checkbox" name="reinvestment" value="fondo_social"> Creación de un fondo social/ambiental específico</label>
+                         <label><input type="checkbox" name="reinvestment" value="empleo_local"> Fomento del empleo local</label>
+                     </div>
+                 </div>
+                 <div class="module">
+                     <h3>Medidor de Impacto Comunitario (Conceptual)</h3>
+                     <div class="visualization-placeholder">
+                         <div class="impact-meter">
+                            <div class="meter-needle" id="impact-needle"></div>
+                            <div class="meter-scale">
+                                <span class="scale-min">Bajo</span>
+                                <span class="scale-mid">Medio</span>
+                                <span class="scale-max">Alto</span>
+                            </div>
+                         </div>
+                         <p id="impact-level-text">Impacto comunitario potencial: Alto</p>
+                     </div>
+                 </div>
+            </section>
+
+            <section id="step-final" class="step">
+                <h2>Paso Final: Revisa y Refina tu Diseño de Gobernanza</h2>
 
                 <div class="module">
-                    <h3>Dashboard de Gobernanza</h3>
-                    <div id="governance-dashboard" class="visualization-area">
-                        <p>[Placeholder: Panel de Control con decisiones clave]</p>
+                    <h3>Dashboard de Decisiones Clave</h3>
+                    <div id="governance-dashboard" class="dashboard-area">
+                        <p><em>Generando resumen de decisiones...</em></p>
                     </div>
                 </div>
 
                 <div class="module">
-                    <h3>Alineación con Principios ACI</h3>
-                    <div id="aci-alignment-score" class="visualization-area">
-                        <p>[Placeholder: Gráfico Radar de Principios ACI]</p>
+                    <h3>Puntuación de Alineación con Principios ACI (Ilustrativa)</h3>
+                    <div id="aci-alignment-score" class="visualization-area radar-chart-container">
+                        <canvas id="aciRadarChart"></canvas>
                     </div>
+                     <p class="disclaimer">Nota: Esta puntuación es ilustrativa y se basa en una interpretación simplificada. Un análisis detallado requiere consulta experta.</p>
                 </div>
 
                  <div class="module">
-                    <h3>Tu Borrador de Gobernanza</h3>
+                    <h3>Borrador Preliminar de Gobernanza</h3>
                     <div id="draft-output" class="output-area">
-                        <p>[Placeholder: Resumen/Borrador de Estatutos Clave]</p>
+                        <p><em>Generando borrador de puntos clave...</em></p>
                     </div>
-                    <button id="download-draft-btn">Descargar Borrador (PDF)</button>
+                    <button id="download-draft-btn" disabled>Descargar Borrador (Función No Implementada)</button>
+                     <p class="disclaimer">Este es un borrador preliminar y no un documento legal. Debe ser revisado por asesores legales/expertos.</p>
                 </div>
             </section>
 
@@ -171,8 +387,8 @@
     </main>
 
     <footer>
-        <p>Energea Design Lab - Una herramienta para construir gobernanza en comunidades energéticas.</p>
-        <p><a href="#link-a-documentacion">Basado en los Principios ACI</a></p> </footer>
+        <p>Energea Design Lab - Herramienta Conceptual | Basado en Principios ACI</p>
+        </footer>
 
     <script src="script.js"></script>
 </body>
