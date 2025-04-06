@@ -85,7 +85,7 @@
                 <h2>Paso 2: Adhesión voluntaria y abierta <span class="principle-tag">P1</span></h2>
 
                 <div class="module">
-                    <h3>Nivel de apertura vs. compromiso</h3>
+                     <h3>Nivel de apertura vs. compromiso</h3>
                     <div id="openness-slider" class="interactive-area slider-container">
                          <label for="openness-level">Nivel de apertura:</label>
                          <span class="slider-label">Máxima facilidad (pocos requisitos)</span>
@@ -95,8 +95,8 @@
                     </div>
                 </div>
                 <div class="module">
-                    <h3>Criterios de elegibilidad (no discriminatorios)</h3>
-                    <div id="eligibility-criteria" class="interactive-area grid-checkboxes">
+                     <h3>Criterios de elegibilidad</h3>
+                    <p>(Deben ser no discriminatorios)</p> <div id="eligibility-criteria" class="interactive-area grid-checkboxes">
                         <label><input type="checkbox" name="criteria" value="geografico"> Residencia/ubicación geográfica</label>
                         <label><input type="checkbox" name="criteria" value="tecnico"> Conexión técnica (ej. misma red BT)</label>
                         <label><input type="checkbox" name="criteria" value="inversion"> Aportación de capital mínima</label>
@@ -105,7 +105,7 @@
                     </div>
                 </div>
                  <div class="module">
-                    <h3>Inclusión y diversidad</h3>
+                     <h3>Inclusión y diversidad</h3>
                     <p>¿Se implementarán medidas activas para fomentar la inclusión?</p>
                      <div id="inclusion-lever" class="interactive-area radio-group">
                         <label><input type="radio" name="inclusion_strategy" value="ninguna" checked> Sin medidas específicas</label>
@@ -114,7 +114,7 @@
                     </div>
                 </div>
                 <div class="module">
-                    <h3>Miembro vs. cliente (visualización conceptual)</h3>
+                     <h3>Miembro vs. cliente</h3>
                     <div id="member-vs-client-viz" class="visualization-area comparison">
                         <div class="comparison-item">
                             <h4>Miembro</h4>
@@ -179,7 +179,7 @@
                                 <div class="thermometer-mercury" id="transparency-mercury"></div>
                                 <div class="thermometer-base"></div>
                             </div>
-                            <p id="transparency-level-text">Nivel de Transparencia: Alto</p>
+                            <p id="transparency-level-text">Nivel de transparencia: Alto</p>
                         </div>
                      </div>
                  </div>
@@ -233,7 +233,8 @@
                      </div>
                  </div>
                  <div class="module">
-                     <h3>Relación con entidades externas (inversores, administraciones)</h3>
+                     <h3>Relación con entidades externas</h3>
+                     <p>(Inversores, administraciones, etc.)</p>
                      <div id="external-relations" class="interactive-area">
                         <label for="external_funding_limit">Límite a la financiación/participación externa (% del capital total):</label>
                         <input type="number" name="external_funding_limit" id="external_funding_limit" value="25" min="0" max="75" step="5"> %
@@ -259,7 +260,7 @@
             <section id="step-6" class="step">
                 <h2>Paso 6: Educación, formación e información <span class="principle-tag">P5</span></h2>
                 <div class="module">
-                    <h3>Actividades de educación y formación</h3>
+                     <h3>Actividades de educación y formación</h3>
                     <p>¿Qué acciones se realizarán para informar y capacitar?</p>
                     <div id="education-activities" class="interactive-area grid-checkboxes">
                         <label><input type="checkbox" name="education" value="info_miembros" checked> Información regular a miembros sobre funcionamiento y energía</label>
@@ -270,7 +271,7 @@
                     </div>
                 </div>
                  <div class="module">
-                     <h3>Impacto del conocimiento (visualización)</h3>
+                     <h3>Impacto del conocimiento</h3>
                      <div class="visualization-placeholder">
                          <div class="knowledge-tree" id="knowledge-tree-viz">
                              <div class="tree-trunk"></div>
@@ -284,7 +285,7 @@
             </section>
 
             <section id="step-7" class="step">
-                 <h2>Paso 7: Cooperación entre cooperativas (y comunidades) <span class="principle-tag">P6</span></h2>
+                 <h2>Paso 7: Cooperación entre comunidades <span class="principle-tag">P6</span></h2>
                   <div class="module">
                      <h3>Nivel de cooperación inter-comunitaria</h3>
                      <p>¿Se buscará activamente la colaboración con otras comunidades energéticas?</p>
@@ -317,7 +318,7 @@
             </section>
 
             <section id="step-8" class="step">
-                 <h2>Paso 8: Interés por la comunidad (local) <span class="principle-tag">P7</span></h2>
+                 <h2>Paso 8: Interés por la comunidad local <span class="principle-tag">P7</span></h2>
                  <div class="module">
                      <h3>Prioridad del beneficio comunitario</h3>
                      <p>Reafirmar el foco en los beneficios para la comunidad local más allá de los miembros.</p>
@@ -339,7 +340,7 @@
                      </div>
                  </div>
                  <div class="module">
-                     <h3>Medidor de impacto comunitario (conceptual)</h3>
+                     <h3>Medidor de impacto comunitario</h3>
                      <div class="visualization-placeholder">
                          <div class="impact-meter">
                             <div class="meter-needle" id="impact-needle"></div>
@@ -365,11 +366,11 @@
                 </div>
 
                 <div class="module">
-                    <h3>Puntuación de alineación con principios ACI (ilustrativa)</h3>
-                    <div id="aci-alignment-score" class="visualization-area radar-chart-container">
+                    <h3>Puntuación de alineación con principios ACI</h3>
+                    <p>(Esta puntuación es ilustrativa)</p> <div id="aci-alignment-score" class="visualization-area radar-chart-container">
                         <canvas id="aciRadarChart"></canvas>
                     </div>
-                     <p class="disclaimer">Nota: Esta puntuación es ilustrativa y se basa en una interpretación simplificada. Un análisis detallado requiere consulta experta.</p>
+                     <p class="disclaimer">Nota: Esta puntuación se basa en una interpretación simplificada. Un análisis detallado requiere consulta experta.</p>
                 </div>
 
                  <div class="module">
@@ -377,7 +378,7 @@
                     <div id="draft-output" class="output-area">
                         <p><em>Generando borrador de puntos clave...</em></p>
                     </div>
-                     <button id="download-draft-btn" class="action-button">Descargar borrador (PDF)</button>
+                    <button id="download-draft-btn" class="action-button">Descargar borrador (PDF)</button>
                      <p class="disclaimer">Este es un borrador preliminar y no un documento legal. Debe ser revisado por asesores legales/expertos.</p>
                 </div>
             </section>
