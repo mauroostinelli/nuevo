@@ -1,4 +1,4 @@
-/* INICIO: Código CSS Completo (style.css) */
+/* INICIO: Código CSS Completo Final (style.css) */
 
 /* ------------------------- */
 /* Variables CSS Globales    */
@@ -50,7 +50,7 @@ body {
     background-color: var(--secondary-color);
     display: flex;
     flex-direction: column;
-    min-height: 100vh; /* Asegura que el footer quede abajo */
+    min-height: 100vh;
 }
 
 /* ------------------------- */
@@ -67,7 +67,6 @@ header {
 header h1 {
     margin-bottom: 0.25rem;
     font-weight: 700;
-    /* No hay tag beta */
 }
 
 footer {
@@ -75,7 +74,7 @@ footer {
     color: rgba(255, 255, 255, 0.8);
     padding: var(--spacing-unit);
     text-align: center;
-    margin-top: auto; /* Empuja el footer hacia abajo */
+    margin-top: auto;
     font-size: 0.9rem;
 }
 
@@ -88,17 +87,18 @@ footer a:hover {
     text-decoration: underline;
 }
 
+
 /* ------------------------- */
 /* Contenedor Principal      */
 /* ------------------------- */
 main#governance-constructor {
-    max-width: 950px; /* Ancho máximo del contenido */
-    margin: calc(var(--spacing-unit) * 2) auto; /* Centrado horizontal y margen vertical */
+    max-width: 950px;
+    margin: calc(var(--spacing-unit) * 2) auto;
     padding: calc(var(--spacing-unit) * 2);
     background-color: #ffffff;
     border-radius: var(--border-radius);
     box-shadow: 0 5px 20px var(--shadow-color);
-    flex-grow: 1; /* Ocupa el espacio disponible */
+    flex-grow: 1;
 }
 
 /* ------------------------- */
@@ -106,53 +106,53 @@ main#governance-constructor {
 /* ------------------------- */
 #progress-bar-container {
     width: 100%;
-    background-color: #e9ecef; /* Fondo barra */
-    border-radius: 15px; /* Más redondeado */
+    background-color: #e9ecef;
+    border-radius: 15px;
     margin-bottom: calc(var(--spacing-unit) * 2);
-    padding: 5px; /* Espacio interno */
-    position: relative; /* Para posicionar texto */
-    height: 30px; /* Altura fija */
+    padding: 5px;
+    position: relative;
+    height: 30px;
     display: flex;
     align-items: center;
-    overflow: hidden; /* Para bordes internos */
+    overflow: hidden;
 }
 
 #progress-bar {
     height: 100%;
-    width: 10%; /* Ancho inicial - Actualizado por JS */
+    width: 10%; /* JS updates this */
     background: linear-gradient(90deg, var(--accent-color) 0%, var(--success-color) 100%);
-    border-radius: 10px; /* Redondeado interno */
-    transition: width 0.5s cubic-bezier(0.65, 0, 0.35, 1); /* Transición suave */
-    box-shadow: inset 0 -2px 4px rgba(0,0,0,0.1); /* Sombra interna sutil */
+    border-radius: 10px;
+    transition: width 0.5s cubic-bezier(0.65, 0, 0.35, 1);
+    box-shadow: inset 0 -2px 4px rgba(0,0,0,0.1);
 }
 
 #progress-step-text {
-    position: absolute; /* Texto sobre la barra */
+    position: absolute;
     width: 100%;
     text-align: center;
     font-weight: bold;
-    color: var(--primary-color); /* Mejor contraste */
+    color: var(--primary-color);
     font-size: 0.9rem;
-    line-height: 20px; /* Alineado verticalmente */
-    pointer-events: none; /* Evita que intercepte clics */
+    line-height: 20px;
+    pointer-events: none;
 }
 
 /* ------------------------- */
 /* Estilos de Pasos (Steps)  */
 /* ------------------------- */
 #steps-container {
-    position: relative; /* Contexto para animaciones */
-    overflow: hidden; /* Ayuda con animaciones */
+    position: relative;
+    overflow: hidden; /* Helps manage animations if added */
 }
 
 .step {
-    display: none; /* Ocultar por defecto */
+    display: none; /* Hide steps by default */
     margin-top: var(--spacing-unit);
-    animation: fadeIn 0.6s ease-out; /* Animación entrada */
+    animation: fadeIn 0.6s ease-out; /* Fade-in animation */
 }
 
 .step.active {
-    display: block; /* Mostrar paso activo */
+    display: block; /* Show the active step */
 }
 
 .step h2 {
@@ -162,12 +162,11 @@ main#governance-constructor {
     border-bottom: 3px solid var(--accent-color);
     font-size: 1.6rem;
     font-weight: 700;
-    display: flex; /* Para alinear etiqueta de principio */
+    display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-/* Animación FadeIn */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(15px); }
   to { opacity: 1; transform: translateY(0); }
@@ -182,7 +181,7 @@ main#governance-constructor {
     background-color: #ffffff;
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* Sombra suave */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .module h3 {
@@ -192,14 +191,19 @@ main#governance-constructor {
     font-weight: 700;
     display: flex;
     align-items: center;
-    gap: 0.75rem; /* Espacio entre texto y etiqueta */
+    gap: 0.75rem;
 }
 
 .module p {
     margin-bottom: 1rem;
     font-size: 1rem;
-    color: #555; /* Color de párrafo ligeramente más suave */
+    color: #555;
 }
+/* Clarification moved from H3 to P tag */
+.module p:first-of-type {
+    margin-top: -0.5rem; /* Adjust spacing if needed after H3 */
+}
+
 
 .principle-tag {
     display: inline-block;
@@ -209,30 +213,29 @@ main#governance-constructor {
     border-radius: 15px;
     font-size: 0.8rem;
     font-weight: bold;
-    flex-shrink: 0; /* Evita que se encoja */
+    flex-shrink: 0;
     box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 
 /* ------------------------- */
-/* Áreas Interactivas y de Contenido */
+/* Áreas Interactivas y Contenido */
 /* ------------------------- */
 .interactive-area,
 .visualization-area,
 .output-area,
 .dashboard-area {
-    background-color: var(--placeholder-bg); /* Fondo blanco */
+    background-color: var(--placeholder-bg);
     border: 1px solid var(--placeholder-border);
     padding: var(--spacing-unit) calc(var(--spacing-unit) * 1.5);
-    margin-top: 1rem; /* Espacio superior */
+    margin-top: 1rem;
     border-radius: var(--border-radius);
 }
 
-/* Párrafos dentro de estas áreas */
 .interactive-area p,
 .visualization-area p,
 .output-area p,
 .dashboard-area p {
-    color: #667; /* Texto secundario */
+    color: #667;
     font-style: italic;
     margin-bottom: 0.5rem;
 }
@@ -240,20 +243,20 @@ main#governance-constructor {
 .visualization-area p:last-child,
 .output-area p:last-child,
 .dashboard-area p:last-child {
-    margin-bottom: 0; /* Sin margen inferior en el último párrafo */
+    margin-bottom: 0;
 }
 
 /* Grid para Checkboxes/Radios */
 .grid-checkboxes, .radio-group {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Columnas adaptables */
-    gap: 0.75rem; /* Espacio entre elementos */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 0.75rem;
 }
 
 .grid-checkboxes label, .radio-group label {
     display: flex;
     align-items: center;
-    background-color: #f8f9fa; /* Fondo ligero para etiquetas */
+    background-color: #f8f9fa;
     padding: 0.75rem;
     border-radius: var(--border-radius);
     border: 1px solid var(--border-color);
@@ -261,42 +264,40 @@ main#governance-constructor {
     transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 .grid-checkboxes label:hover, .radio-group label:hover {
-    background-color: #e9ecef; /* Efecto hover */
+    background-color: #e9ecef;
     border-color: #adb5bd;
 }
 .grid-checkboxes input[type="checkbox"],
 .radio-group input[type="radio"] {
     margin-right: 0.75rem;
-    accent-color: var(--primary-color); /* Color del check/radio */
-    transform: scale(1.1); /* Ligeramente más grande */
+    accent-color: var(--primary-color);
+    transform: scale(1.1);
     cursor: pointer;
 }
 
 /* Estilo para Sliders */
 .slider-container {
     display: flex;
-    flex-wrap: wrap; /* Permite envolver */
+    flex-wrap: wrap;
     align-items: center;
-    gap: 0.5rem 1rem; /* Espacio vertical y horizontal */
+    gap: 0.5rem 1rem;
 }
-.slider-container label { /* Etiqueta principal del slider */
+.slider-container label {
     font-weight: bold;
     margin-right: 0.5rem;
 }
 .slider-container input[type="range"] {
-    flex-grow: 1; /* Ocupa espacio disponible */
+    flex-grow: 1;
     min-width: 150px;
     cursor: pointer;
-    accent-color: var(--accent-color); /* Color del thumb */
-    height: 8px; /* Altura del track */
-    /* Estilo dinámico del track (actualizado por JS) */
+    accent-color: var(--accent-color);
+    height: 8px;
     background: linear-gradient(to right, var(--accent-color) 0%, var(--accent-color) var(--value, 50%), #ddd var(--value, 50%), #ddd 100%);
     border-radius: 5px;
-    appearance: none; /* Quitar estilos por defecto */
+    appearance: none;
     -webkit-appearance: none;
     outline: none;
 }
-/* Thumb (bolita) para Webkit (Chrome, Safari) */
 .slider-container input[type="range"]::-webkit-slider-thumb {
      -webkit-appearance: none;
      appearance: none;
@@ -305,7 +306,6 @@ main#governance-constructor {
      border-radius: 50%;
      cursor: pointer;
 }
-/* Thumb (bolita) para Firefox */
 .slider-container input[type="range"]::-moz-range-thumb {
     width: 18px; height: 18px;
     background: var(--primary-color);
@@ -314,15 +314,15 @@ main#governance-constructor {
     cursor: pointer;
 }
 
-.slider-label { /* Etiquetas "Min" y "Max" del slider */
+.slider-label {
     font-size: 0.9em;
     color: #555;
 }
-.slider-value { /* Valor numérico mostrado */
+.slider-value {
     font-weight: bold;
     color: var(--primary-color);
     margin-left: 1rem;
-    min-width: 100px; /* Espacio para el texto */
+    min-width: 100px;
 }
 
 /* Estilo para Selects */
@@ -341,20 +341,20 @@ select {
 select:focus {
     outline: none;
     border-color: var(--accent-color);
-    box-shadow: 0 0 0 2px rgba(0, 187, 169, 0.3); /* Resaltado foco */
+    box-shadow: 0 0 0 2px rgba(0, 187, 169, 0.3);
 }
 
 /* Estilo para Checkboxes sueltos */
 label.checkbox-label {
-    display: block; /* Ocupa su línea */
+    display: block;
     margin-top: 0.75rem;
     cursor: pointer;
-    font-weight: normal; /* Asegurar peso normal */
+    font-weight: normal;
 }
 label.checkbox-label input {
      margin-right: 0.5rem;
      accent-color: var(--primary-color);
-     vertical-align: middle; /* Mejor alineación vertical */
+     vertical-align: middle;
 }
 
 /* Estilo para Inputs numéricos */
@@ -378,7 +378,7 @@ input[type="number"]:focus {
     color: #667;
     margin-top: 0.5rem;
     font-style: italic;
-    width: 100%; /* Asegura que ocupe toda la línea */
+    width: 100%;
 }
 
 /* Alertas (ej. dependencia) */
@@ -391,16 +391,16 @@ input[type="number"]:focus {
 .alert-area.hidden {
     display: none;
 }
-.alert-area:not(.hidden) { /* Estilo cuando es visible */
-    background-color: #fef3cd; /* Fondo amarillo pálido */
-    border-color: var(--warning-color); /* Borde naranja */
-    color: #664d03; /* Texto oscuro */
+.alert-area:not(.hidden) {
+    background-color: #fef3cd;
+    border-color: var(--warning-color);
+    color: #664d03;
 }
-.alert-area:not(.hidden) span { /* Si se usa span dentro */
+.alert-area:not(.hidden) span {
     font-weight: bold;
 }
 
-/* Disclaimers (Nota al final de paso o visualización) */
+/* Disclaimers */
 .disclaimer, .disclaimer-viz {
     font-size: 0.85em;
     font-style: italic;
@@ -408,25 +408,24 @@ input[type="number"]:focus {
     text-align: center;
     margin-top: 1rem;
 }
-.disclaimer { /* El general tiene borde */
+.disclaimer { /* General con borde */
     border-top: 1px dashed var(--border-color);
     padding-top: 1rem;
 }
-.disclaimer-viz { margin-top: 0.75rem; } /* El específico no */
-
+.disclaimer-viz { margin-top: 0.75rem; } /* Específico sin borde */
 
 /* Contenedor para input 'Otro' Votación */
 .other-input-container {
     margin-top: 1rem;
     padding: 1rem;
     border: 1px solid var(--placeholder-border);
-    background-color: #fdfdfd; /* Fondo diferente */
+    background-color: #fdfdfd;
     border-radius: var(--border-radius);
 }
 .other-input-container.hidden {
     display: none;
 }
-.other-input-container label { /* Etiqueta del textarea */
+.other-input-container label {
     display: block;
     font-weight: bold;
     margin-bottom: 0.5rem;
@@ -439,7 +438,7 @@ input[type="number"]:focus {
     border-radius: var(--border-radius);
     font-family: inherit;
     font-size: 0.95rem;
-    min-height: 60px; /* Altura mínima */
+    min-height: 60px;
 }
 .other-input-container textarea:focus {
     outline: none;
@@ -494,8 +493,8 @@ input[type="number"]:focus {
 .knowledge-tree { position: relative; width: 180px; height: 180px; margin: 1rem auto 0; }
 .tree-trunk { width: 20px; height: 60px; background-color: #a0522d; position: absolute; bottom: 25px; left: 50%; transform: translateX(-50%); border-radius: 3px; z-index: 1; }
 .tree-base { position: absolute; bottom: 0; left: 0; width: 100%; text-align: center; font-weight: bold; color: #555; font-size: 0.9em; }
-.tree-branches { position: absolute; top: 0; left: 0; width: 100%; height: 130px; z-index: 0; } /* Área para las ramas */
-.branch { /* Estilo base, JS controla posición, tamaño, color */
+.tree-branches { position: absolute; top: 0; left: 0; width: 100%; height: 130px; z-index: 0; } /* Área para ramas */
+.branch { /* Estilo base, JS controla pos, color, etc */
     position: absolute;
     width: 50px; height: 50px;
     background-color: var(--success-color); border-radius: 50%;
@@ -536,16 +535,28 @@ input[type="number"]:focus {
      text-align: center; margin-bottom: 1.5rem; padding-bottom: 0.5rem;
      border-bottom: 1px solid var(--accent-color);
 }
-.output-area strong { /* Títulos de sección en borrador */
+.output-area strong { /* Títulos sección borrador */
     font-family: var(--font-family); font-weight: bold; color: var(--primary-color);
     display: block; margin-top: 1rem; margin-bottom: 0.5rem;
 }
-.output-area ul { padding-left: 1.5rem; margin-top:0.5rem; margin-bottom: 1rem;}
+.output-area ul { padding-left: 1.5rem; margin-top:0.5rem; margin-bottom: 1rem;} /* Estilo listas */
 .output-area li { margin-bottom: 0.3rem; }
 .output-area em { display: block; text-align: center; margin-top: 1.5rem; color: #888; }
 
 /* Radar Chart Container */
-.radar-chart-container { padding: 1rem; max-width: 500px; margin-left: auto; margin-right: auto; }
+.radar-chart-container {
+    padding: 1rem;
+    max-width: 500px; /* Limitar tamaño gráfico */
+    min-height: 300px; /* Asegurar espacio vertical */
+    margin-left: auto;
+    margin-right: auto;
+    position: relative; /* Para posible overlay o mensaje */
+}
+/* Estilo para el canvas en sí, si es necesario */
+#aciRadarChart {
+    max-width: 100%;
+    height: auto; /* Mantiene proporción */
+}
 
 /* ------------------------- */
 /* Botones de Navegación     */
@@ -597,15 +608,15 @@ input[type="number"]:focus {
     header, footer { padding: var(--spacing-unit); }
     header h1 { font-size: 1.5rem; } header p { font-size: 0.9rem; }
     .step h2 { font-size: 1.4rem; } .module h3 { font-size: 1.15rem; }
-    .grid-checkboxes, .radio-group { grid-template-columns: 1fr; }
+    .grid-checkboxes, .radio-group { grid-template-columns: 1fr; } /* Una columna */
     .slider-container { flex-direction: column; align-items: flex-start; }
     .slider-container input[type="range"] { width: 100%; }
     .slider-value { margin-left: 0; margin-top: 0.5rem; }
     .comparison { flex-direction: column; } .comparison-item { width: 100%; }
-    #navigation-buttons { justify-content: center; } /* Centrar botones si envuelven */
-    #navigation-buttons button { flex-basis: 45%; text-align: center; margin-bottom: 0.5rem; }
+    #navigation-buttons { justify-content: center; } /* Centrar si envuelve */
+    #navigation-buttons button { flex-basis: 45%; text-align: center; margin-bottom: 0.5rem; } /* Intentar 2 por línea */
     #next-btn { flex-basis: 100%; margin-left: 0; } /* Siguiente ocupa todo ancho */
-    .radar-chart-container { padding: 0.5rem; }
+    .radar-chart-container { padding: 0.5rem; max-width: 100%; } /* Ocupar ancho en móvil */
 }
 @media (max-width: 480px) {
      #navigation-buttons button { flex-basis: 100%; } /* Botones en columna */
@@ -613,4 +624,4 @@ input[type="number"]:focus {
      #prev-btn { order: 2; }
      #reset-btn { order: 1; }
 }
-/* FIN: Código CSS Completo (style.css) */
+/* FIN: Código CSS Completo Final (style.css) */
