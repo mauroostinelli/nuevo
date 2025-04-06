@@ -1,0 +1,313 @@
+/* style.css */
+
+/* ------------------------- */
+/* Variables CSS Globales    */
+/* ------------------------- */
+:root {
+    --primary-color: #2c3e50;       /* Azul oscuro/grisáceo */
+    --secondary-color: #ecf0f1;    /* Gris muy claro (casi blanco) */
+    --accent-color: #3498db;        /* Azul brillante */
+    --accent-hover-color: #2980b9; /* Azul más oscuro para hover */
+    --success-color: #2ecc71;       /* Verde */
+    --text-color: #34495e;         /* Gris oscuro para texto */
+    --light-text-color: #ffffff;   /* Blanco para texto sobre fondos oscuros */
+    --border-color: #bdc3c7;       /* Gris claro para bordes */
+    --placeholder-bg: #f8f9f9;     /* Fondo muy sutil para placeholders */
+    --placeholder-border: #e0e4e5; /* Borde para placeholders */
+    --disabled-color: #95a5a6;     /* Color para elementos deshabilitados */
+
+    --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --base-font-size: 16px;
+    --spacing-unit: 1rem; /* 16px por defecto */
+}
+
+/* ------------------------- */
+/* Reseteo Básico y Body     */
+/* ------------------------- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-family);
+    font-size: var(--base-font-size);
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--secondary-color);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* ------------------------- */
+/* Header y Footer           */
+/* ------------------------- */
+header {
+    background-color: var(--primary-color);
+    color: var(--light-text-color);
+    padding: var(--spacing-unit) calc(var(--spacing-unit) * 2);
+    text-align: center;
+}
+
+header h1 {
+    margin-bottom: 0.25rem;
+}
+
+footer {
+    background-color: var(--primary-color);
+    color: var(--light-text-color);
+    padding: var(--spacing-unit);
+    text-align: center;
+    margin-top: auto; /* Empuja el footer hacia abajo */
+    font-size: 0.9rem;
+}
+
+footer a {
+    color: var(--accent-color);
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+
+/* ------------------------- */
+/* Contenedor Principal      */
+/* ------------------------- */
+main#governance-constructor {
+    max-width: 900px; /* Ancho máximo del contenido */
+    margin: calc(var(--spacing-unit) * 2) auto; /* Centrado horizontal */
+    padding: calc(var(--spacing-unit) * 2);
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    flex-grow: 1; /* Permite que el main ocupe el espacio disponible */
+}
+
+/* ------------------------- */
+/* Barra de Progreso         */
+/* ------------------------- */
+#progress-bar-container {
+    width: 100%;
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    margin-bottom: calc(var(--spacing-unit) * 2);
+    padding: 4px;
+    position: relative; /* Para posicionar el texto */
+    height: 30px; /* Altura fija para contener la barra y el texto */
+    display: flex;
+    align-items: center;
+}
+
+#progress-bar {
+    height: 100%;
+    width: 10%; /* Ancho inicial (ej: para el paso 1 de 10) - Se actualizará con JS */
+    background-color: var(--success-color);
+    border-radius: 3px;
+    transition: width 0.4s ease-in-out; /* Animación suave */
+}
+
+#progress-step-text {
+    position: absolute; /* Posiciona el texto sobre la barra */
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+    color: var(--primary-color);
+    font-size: 0.9rem;
+    /* Ajustar si el color de la barra dificulta la lectura */
+}
+
+
+/* ------------------------- */
+/* Estilos de Pasos (Steps)  */
+/* ------------------------- */
+#steps-container {
+    position: relative; /* Podría ser útil para animaciones */
+}
+
+.step {
+    display: none; /* Ocultar todos los pasos por defecto */
+    padding: var(--spacing-unit);
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    margin-top: var(--spacing-unit);
+    animation: fadeIn 0.5s ease-in-out; /* Animación simple de entrada */
+}
+
+.step.active {
+    display: block; /* Mostrar solo el paso activo */
+}
+
+.step h2 {
+    color: var(--primary-color);
+    margin-bottom: var(--spacing-unit);
+    border-bottom: 2px solid var(--accent-color);
+    padding-bottom: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Animación FadeIn */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ------------------------- */
+/* Estilos de Módulos        */
+/* ------------------------- */
+.module {
+    margin-bottom: calc(var(--spacing-unit) * 1.5);
+    padding: var(--spacing-unit);
+    background-color: #fdfdfd; /* Ligeramente diferente del fondo del paso */
+    border: 1px solid #eee;
+    border-radius: 4px;
+}
+
+.module h3 {
+    color: var(--primary-color);
+    margin-bottom: 0.75rem;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; /* Espacio entre el texto y la etiqueta del principio */
+}
+
+.module p {
+    margin-bottom: 0.75rem;
+    font-size: 0.95rem;
+}
+
+.principle-tag {
+    display: inline-block;
+    background-color: var(--accent-color);
+    color: var(--light-text-color);
+    padding: 0.2rem 0.5rem;
+    border-radius: 10px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    flex-shrink: 0; /* Evita que se encoja si el título es largo */
+}
+
+/* ------------------------- */
+/* Áreas Interactivas y Placeholders */
+/* ------------------------- */
+.interactive-area,
+.visualization-area,
+.output-area {
+    background-color: var(--placeholder-bg);
+    border: 1px dashed var(--placeholder-border);
+    padding: var(--spacing-unit);
+    margin-top: 0.5rem;
+    border-radius: 4px;
+    min-height: 50px; /* Altura mínima para que sean visibles */
+    display: flex; /* Para centrar el texto del placeholder si es necesario */
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.interactive-area p, /* Estilo específico para el texto placeholder */
+.visualization-area p,
+.output-area p {
+    color: #7f8c8d; /* Gris más claro */
+    font-style: italic;
+    margin: 0; /* Resetear margen si es necesario */
+}
+
+/* Estilos específicos para elementos (se refinarán con JS/HTML real) */
+input[type="range"] { /* Estilo básico para el slider */
+    width: 80%;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.dynamic-text {
+    font-size: 0.9em;
+    color: #555;
+    margin-top: 0.5rem;
+    font-style: italic;
+}
+
+.alert-area {
+    /* Estilos para alertas visuales */
+    padding: var(--spacing-unit);
+    margin-top: 0.5rem;
+    border-radius: 4px;
+}
+
+/* ------------------------- */
+/* Botones de Navegación     */
+/* ------------------------- */
+#navigation-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: calc(var(--spacing-unit) * 2);
+    padding-top: var(--spacing-unit);
+    border-top: 1px solid var(--border-color);
+}
+
+#navigation-buttons button {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+#navigation-buttons button:hover:not(:disabled) {
+    transform: translateY(-2px); /* Ligero efecto al pasar el ratón */
+}
+
+#prev-btn {
+    background-color: #bdc3c7; /* Gris claro */
+    color: var(--primary-color);
+}
+
+#prev-btn:hover:not(:disabled) {
+     background-color: #a4acb0;
+}
+
+#next-btn, #download-draft-btn {
+    background-color: var(--accent-color);
+    color: var(--light-text-color);
+}
+#next-btn:hover, #download-draft-btn:hover {
+    background-color: var(--accent-hover-color);
+}
+
+#navigation-buttons button:disabled {
+    background-color: var(--disabled-color);
+    color: #f0f0f0;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+#download-draft-btn { /* Estilo específico si es necesario */
+    margin-top: var(--spacing-unit); /* Espacio sobre el botón de descarga */
+}
+
+/* ------------------------- */
+/* Responsividad (Básica)    */
+/* ------------------------- */
+@media (max-width: 768px) {
+    main#governance-constructor {
+        margin: var(--spacing-unit) auto;
+        padding: var(--spacing-unit);
+        width: 95%; /* Ocupa más ancho en pantallas pequeñas */
+    }
+
+    header, footer {
+        padding: var(--spacing-unit);
+    }
+
+    .step h2 {
+        font-size: 1.3rem;
+    }
+}
