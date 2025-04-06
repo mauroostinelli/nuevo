@@ -4,7 +4,7 @@
 /* Variables CSS Globales    */
 /* ------------------------- */
 :root {
-    --primary-color: #005792;       /* Azul más corporativo */
+    --primary-color: #005792;       /* Azul corporativo */
     --secondary-color: #f4f7f6;    /* Fondo general gris muy claro */
     --accent-color: #00bbA9;        /* Verde azulado vibrante */
     --accent-hover-color: #00a090; /* Verde azulado más oscuro */
@@ -64,7 +64,6 @@ header {
 header h1 {
     margin-bottom: 0.25rem;
     font-weight: 700;
-    /* Beta tag class removed as element is gone */
 }
 
 footer {
@@ -72,11 +71,11 @@ footer {
     color: rgba(255, 255, 255, 0.8);
     padding: var(--spacing-unit);
     text-align: center;
-    margin-top: auto; /* Empuja el footer hacia abajo */
+    margin-top: auto;
     font-size: 0.9rem;
 }
 
-footer a { /* Si hubiera enlaces en el footer */
+footer a {
     color: var(--accent-color);
     text-decoration: none;
 }
@@ -84,6 +83,7 @@ footer a { /* Si hubiera enlaces en el footer */
 footer a:hover {
     text-decoration: underline;
 }
+
 
 /* ------------------------- */
 /* Contenedor Principal      */
@@ -282,6 +282,7 @@ main#governance-constructor {
     cursor: pointer;
     accent-color: var(--accent-color);
     height: 8px;
+    /* Estilo dinámico de fondo para track */
     background: linear-gradient(to right, var(--accent-color) 0%, var(--accent-color) var(--value, 50%), #ddd var(--value, 50%), #ddd 100%);
     border-radius: 5px;
     appearance: none;
@@ -333,7 +334,7 @@ select:focus {
     border-color: var(--accent-color);
     box-shadow: 0 0 0 2px rgba(0, 187, 169, 0.3);
 }
-label.checkbox-label {
+label.checkbox-label { /* Checkboxes sueltos */
     display: block;
     margin-top: 0.75rem;
     cursor: pointer;
@@ -382,36 +383,31 @@ input[type="number"]:focus {
     border-color: var(--warning-color);
     color: #664d03;
 }
-.alert-area:not(.hidden) span { /* Si se usa un span dentro */
+.alert-area:not(.hidden) span {
     font-weight: bold;
 }
 
-/* Disclaimer general (final del paso) */
-.disclaimer {
+/* Disclaimer general y específico para visualizaciones */
+.disclaimer, .disclaimer-viz {
     font-size: 0.85em;
     font-style: italic;
     color: #777;
-    margin-top: 1rem;
     text-align: center;
+    margin-top: 1rem;
+}
+.disclaimer { /* El general tiene borde superior */
     border-top: 1px dashed var(--border-color);
     padding-top: 1rem;
 }
+.disclaimer-viz { margin-top: 0.75rem; } /* El específico no tiene borde */
 
-/* Disclaimer específico para visualizaciones */
-.disclaimer-viz {
-    font-size: 0.85em;
-    font-style: italic;
-    color: #777;
-    text-align: center;
-    margin-top: 0.75rem;
-}
 
-/* Contenedor para input 'Otro' (Añadido) */
+/* Contenedor para input 'Otro' Votación */
 .other-input-container {
     margin-top: 1rem;
     padding: 1rem;
-    border: 1px solid var(--placeholder-border); /* Borde sutil */
-    background-color: #fdfdfd; /* Fondo ligeramente diferente */
+    border: 1px solid var(--placeholder-border);
+    background-color: #fdfdfd;
     border-radius: var(--border-radius);
 }
 .other-input-container.hidden {
@@ -421,7 +417,7 @@ input[type="number"]:focus {
     display: block;
     font-weight: bold;
     margin-bottom: 0.5rem;
-    color: var(--primary-color); /* Color etiqueta */
+    color: var(--primary-color);
 }
 .other-input-container textarea {
     width: 100%;
@@ -430,7 +426,7 @@ input[type="number"]:focus {
     border-radius: var(--border-radius);
     font-family: inherit;
     font-size: 0.95rem;
-    min-height: 60px; /* Altura mínima */
+    min-height: 60px;
 }
 .other-input-container textarea:focus {
     outline: none;
@@ -447,55 +443,28 @@ input[type="number"]:focus {
     border-top: 1px dashed var(--border-color);
     text-align: center;
 }
-.visualization-placeholder > p {
+.visualization-placeholder > p { /* Texto descriptivo bajo visualización */
     font-weight: bold;
     color: var(--primary-color);
     margin-top: 0.75rem;
-    font-style: normal;
+    font-style: normal; /* Quitar cursiva */
 }
 
 /* Miembros Lista */
 #member-list-viz {
-    list-style: none;
-    padding: 0;
-    margin-top: 0.5rem;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.5rem;
+    list-style: none; padding: 0; margin-top: 0.5rem;
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem;
 }
 #member-list-viz li {
-    background-color: #e9ecef;
-    padding: 0.3rem 0.8rem;
-    border-radius: 15px;
-    font-size: 0.9em;
+    background-color: #e9ecef; padding: 0.3rem 0.8rem;
+    border-radius: 15px; font-size: 0.9em;
 }
 
 /* Comparación Miembro vs Cliente */
-.comparison {
-    display: flex;
-    justify-content: space-around;
-    gap: 1rem;
-    margin-top: 1rem;
-}
-.comparison-item {
-    border: 1px solid var(--border-color);
-    padding: 1rem;
-    border-radius: var(--border-radius);
-    width: 45%;
-    background-color: #f8f9fa;
-}
-.comparison-item h4 {
-    text-align: center;
-    margin-bottom: 0.75rem;
-    color: var(--primary-color);
-}
-.comparison-item ul {
-    list-style: disc;
-    padding-left: 1.5rem;
-    font-size: 0.9em;
-    color: #555;
-}
+.comparison { display: flex; justify-content: space-around; gap: 1rem; margin-top: 1rem; }
+.comparison-item { border: 1px solid var(--border-color); padding: 1rem; border-radius: var(--border-radius); width: 45%; background-color: #f8f9fa; }
+.comparison-item h4 { text-align: center; margin-bottom: 0.75rem; color: var(--primary-color); }
+.comparison-item ul { list-style: disc; padding-left: 1.5rem; font-size: 0.9em; color: #555; }
 
 /* Balanza Voto */
 .balance-scale { position: relative; width: 150px; height: 100px; margin: 1rem auto 0; }
@@ -509,67 +478,17 @@ input[type="number"]:focus {
 .thermometer-base { position: absolute; bottom: -15px; left: -5px; width: 40px; height: 40px; background-color: var(--accent-color); border-radius: 50%; border: 2px solid var(--primary-color); }
 
 /* Escudo Autonomía */
-.autonomy-shield {
-    position: relative; width: 100px; height: 120px;
-    background-color: var(--secondary-color); border: 3px solid var(--primary-color);
-    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-    margin: 1rem auto 0; display: flex; justify-content: center; align-items: center;
-    overflow: hidden;
-}
+.autonomy-shield { position: relative; width: 100px; height: 120px; background-color: var(--secondary-color); border: 3px solid var(--primary-color); border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; margin: 1rem auto 0; display: flex; justify-content: center; align-items: center; overflow: hidden; }
 .autonomy-shield span { color: var(--primary-color); font-weight: bold; z-index: 3; font-size: 0.8em; }
-.shield-layer { position: absolute; width: 100%; height: 100%; border-radius: inherit; opacity: 0.3; transition: background-color 0.4s ease; }
-#shield-layer-1 { background-color: transparent; z-index: 0; }
-#shield-layer-2 { background-color: transparent; z-index: 1; }
-#shield-layer-3 { background-color: transparent; z-index: 2; }
+.shield-layer { position: absolute; width: 100%; height: 100%; border-radius: inherit; opacity: 0.3; transition: background-color 0.4s ease; background-color: transparent; } /* Simplificado, JS controla color */
+#shield-layer-1 { z-index: 0; } #shield-layer-2 { z-index: 1; } #shield-layer-3 { z-index: 2; }
 
-/* Árbol Conocimiento (Mejorado) */
-.knowledge-tree {
-    position: relative;
-    width: 180px;
-    height: 180px;
-    margin: 1rem auto 0;
-    /* border: 1px dashed lightgrey; Para depuración */
-}
-.tree-trunk {
-    width: 20px;
-    height: 60px;
-    background-color: #a0522d; /* Marrón más siena */
-    position: absolute;
-    bottom: 25px;
-    left: 50%;
-    transform: translateX(-50%);
-    border-radius: 3px;
-    z-index: 1; /* Encima de las ramas inferiores */
-}
-.tree-base {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    text-align: center;
-    font-weight: bold;
-    color: #555;
-    font-size: 0.9em;
-}
-.tree-branches {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 130px; /* Área mayor para las ramas */
-    /* border: 1px dashed blue; Para depuración */
-    z-index: 0;
-}
-.branch { /* Círculos que simulan hojas/ramas */
-    position: absolute; /* Posición controlada por JS */
-    width: 50px; /* Tamaño base de los círculos */
-    height: 50px;
-    background-color: var(--success-color);
-    border-radius: 50%;
-    opacity: 0.6; /* Opacidad base */
-    transition: transform 0.4s ease, opacity 0.4s ease, background-color 0.3s ease;
-    box-shadow: inset 0 0 8px rgba(0,0,0,0.1); /* Sombra interior */
-}
+/* Árbol Conocimiento (Determinista) */
+.knowledge-tree { position: relative; width: 180px; height: 180px; margin: 1rem auto 0; }
+.tree-trunk { width: 20px; height: 60px; background-color: #a0522d; position: absolute; bottom: 25px; left: 50%; transform: translateX(-50%); border-radius: 3px; z-index: 1; }
+.tree-base { position: absolute; bottom: 0; left: 0; width: 100%; text-align: center; font-weight: bold; color: #555; font-size: 0.9em; }
+.tree-branches { position: absolute; top: 0; left: 0; width: 100%; height: 130px; z-index: 0; }
+.branch { position: absolute; width: 50px; height: 50px; background-color: var(--success-color); border-radius: 50%; opacity: 0.6; transition: transform 0.4s ease, opacity 0.4s ease, background-color 0.3s ease; box-shadow: inset 0 0 8px rgba(0,0,0,0.1); }
 
 /* Mapa Cooperación */
 .cooperation-map { position: relative; width: 250px; height: 100px; margin: 1rem auto 0; display: flex; justify-content: space-around; align-items: center; }
@@ -577,8 +496,7 @@ input[type="number"]:focus {
 .map-node.self { background-color: var(--accent-color); }
 .map-node.other { background-color: #aaa; transition: background-color 0.3s ease; }
 .map-link { position: absolute; top: 50%; left: 25%; width: 50%; height: 3px; background-color: #ccc; z-index: 0; transition: background-color 0.3s ease; transform: translateY(-50%); }
-#coop-link-1 { left: 15%; width: 25%; }
-#coop-link-2 { left: 60%; width: 25%; }
+#coop-link-1 { left: 15%; width: 25%; } #coop-link-2 { left: 60%; width: 25%; }
 
 /* Medidor Impacto */
 .impact-meter { position: relative; width: 180px; height: 90px; border-top-left-radius: 90px; border-top-right-radius: 90px; background: linear-gradient(to right, var(--warning-color), var(--success-color), var(--accent-color)); margin: 1.5rem auto 0; overflow: hidden; border: 2px solid var(--primary-color); border-bottom: none; }
@@ -586,187 +504,99 @@ input[type="number"]:focus {
 .meter-scale { position: absolute; bottom: 5px; width: 100%; display: flex; justify-content: space-between; padding: 0 15px; font-size: 0.75em; color: var(--primary-color); font-weight: bold; }
 
 /* ------------------------- */
-/* Dashboard y Output        */
+/* Dashboard y Output Final  */
 /* ------------------------- */
 .dashboard-area ul { list-style: none; padding: 0; }
 .dashboard-area li { margin-bottom: 0.75rem; padding-bottom: 0.75rem; border-bottom: 1px dotted var(--border-color); }
 .dashboard-area li:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
 .dashboard-area strong { color: var(--primary-color); display: block; margin-bottom: 0.25rem; }
-.dashboard-area span { margin-left: 0; /* Quitamos indentación para mejor lectura */ display: block; /* Ocupa línea nueva */ font-style: normal; color: #555; }
+.dashboard-area span { margin-left: 0; display: block; font-style: normal; color: #555; }
 
 .output-area {
-    background-color: #f8f9fa;
-    font-family: var(--font-family); /* Fuente normal, no monoespaciada */
-    font-size: 0.95em; /* Ligeramente más grande */
-    line-height: 1.7;
-    /* white-space: pre-wrap; Quitamos para que <br> controle saltos */
-    max-height: 450px; /* Un poco más alto */
-    overflow-y: auto;
-    padding: calc(var(--spacing-unit)*1.5); /* Más padding */
-    border: 1px solid var(--placeholder-border);
+    background-color: #f8f9fa; font-family: var(--font-family); font-size: 0.95em;
+    line-height: 1.7; max-height: 450px; overflow-y: auto;
+    padding: calc(var(--spacing-unit)*1.5); border: 1px solid var(--placeholder-border);
     border-radius: var(--border-radius);
 }
-.output-area h4 { /* Estilo del título dentro del output */
-     font-family: var(--font-family);
-     font-weight: bold;
-     color: var(--primary-color);
-     text-align: center;
-     margin-bottom: 1.5rem;
-     padding-bottom: 0.5rem;
+.output-area h4 {
+     font-family: var(--font-family); font-weight: bold; color: var(--primary-color);
+     text-align: center; margin-bottom: 1.5rem; padding-bottom: 0.5rem;
      border-bottom: 1px solid var(--accent-color);
 }
-.output-area strong { /* Estilo de los títulos de sección */
-    font-family: var(--font-family);
-    font-weight: bold;
-    color: var(--primary-color);
-    display: block; /* Ocupa su línea */
-    margin-top: 1rem; /* Espacio antes de cada sección */
-    margin-bottom: 0.5rem;
+.output-area strong {
+    font-family: var(--font-family); font-weight: bold; color: var(--primary-color);
+    display: block; margin-top: 1rem; margin-bottom: 0.5rem;
 }
-.output-area em { /* Para la línea final */
-    display: block;
-    text-align: center;
-    margin-top: 1.5rem;
-    color: #888;
-}
+.output-area ul { padding-left: 1.5rem; margin-bottom: 1rem;} /* Estilo para listas en borrador */
+.output-area li { margin-bottom: 0.3rem; }
+.output-area em { display: block; text-align: center; margin-top: 1.5rem; color: #888; }
 
 /* Radar Chart Container */
-.radar-chart-container {
-    padding: 1rem;
-    max-width: 500px;
-    margin-left: auto;
-    margin-right: auto;
-}
+.radar-chart-container { padding: 1rem; max-width: 500px; margin-left: auto; margin-right: auto; }
 
 /* ------------------------- */
 /* Botones de Navegación     */
 /* ------------------------- */
 #navigation-buttons {
-    display: flex;
-    justify-content: space-between; /* Espacio entre grupos de botones */
-    align-items: center;
-    flex-wrap: wrap; /* Permite envolver en pantallas pequeñas */
-    gap: 1rem; /* Espacio entre botones */
-    margin-top: calc(var(--spacing-unit) * 2.5);
-    padding-top: calc(var(--spacing-unit) * 1.5);
-    border-top: 1px solid var(--border-color);
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 1rem; margin-top: calc(var(--spacing-unit) * 2.5);
+    padding-top: calc(var(--spacing-unit) * 1.5); border-top: 1px solid var(--border-color);
 }
-
-/* Estilos generales para todos los botones de navegación */
 #navigation-buttons button {
-    padding: 0.8rem 1.5rem;
-    font-size: 1rem;
-    font-weight: 700;
-    border: none;
-    border-radius: var(--border-radius);
-    cursor: pointer;
+    padding: 0.8rem 1.5rem; font-size: 1rem; font-weight: 700; border: none;
+    border-radius: var(--border-radius); cursor: pointer;
     transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    flex-grow: 0; /* No crecen por defecto */
-    flex-shrink: 0; /* No encogen por defecto */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); flex-grow: 0; flex-shrink: 0;
 }
-#navigation-buttons button:hover:not(:disabled) {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-}
-#navigation-buttons button:disabled {
-    background-color: var(--disabled-color);
-    color: #f0f0f0;
-    cursor: not-allowed;
-    opacity: 0.7;
-    box-shadow: none;
-    transform: none;
-}
-
+#navigation-buttons button:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.15); }
+#navigation-buttons button:disabled { background-color: var(--disabled-color); color: #f0f0f0; cursor: not-allowed; opacity: 0.7; box-shadow: none; transform: none; }
 
 /* Botón Reiniciar (Izquierda) */
-#reset-btn {
-    background-color: var(--danger-color); /* Rojo */
-    color: var(--light-text-color);
-    /* order: 1;  No necesario si es el primero en HTML */
-}
-#reset-btn:hover:not(:disabled) {
-    background-color: var(--danger-hover-color);
-}
+#reset-btn { background-color: var(--danger-color); color: var(--light-text-color); }
+#reset-btn:hover:not(:disabled) { background-color: var(--danger-hover-color); }
 
 /* Botón Anterior (Centro-Izquierda) */
-#prev-btn {
-    background-color: #bdc3c7; /* Gris */
-    color: var(--primary-color);
-     /* order: 2; */
-}
-#prev-btn:hover:not(:disabled) {
-     background-color: #a4acb0;
-}
+#prev-btn { background-color: #bdc3c7; color: var(--primary-color); }
+#prev-btn:hover:not(:disabled) { background-color: #a4acb0; }
 
 /* Botón Siguiente (Derecha) */
-#next-btn {
-    background-color: var(--accent-color); /* Verde azulado */
-    color: var(--light-text-color);
-    margin-left: auto; /* Empuja a la derecha */
-     /* order: 3; */
-}
-#next-btn:hover:not(:disabled) {
-    background-color: var(--accent-hover-color);
-}
+#next-btn { background-color: var(--accent-color); color: var(--light-text-color); margin-left: auto; } /* Empuja a la derecha */
+#next-btn:hover:not(:disabled) { background-color: var(--accent-hover-color); }
 
-
-/* Botón Descarga (Estilo primario, como Siguiente) */
-/* Hereda estilos de button, ajustamos aquí si es necesario */
+/* Botón Descarga (Primario) */
 #download-draft-btn {
-    /* Mismos colores que #next-btn */
-     background-color: var(--accent-color);
-     color: var(--light-text-color);
-     /* Estilos específicos de tamaño/margen ya están definidos */
+    background-color: var(--accent-color); color: var(--light-text-color);
+    margin-top: var(--spacing-unit); display: block; margin-left: auto; margin-right: auto;
+    padding: 0.8rem 1.5rem; font-size: 1rem; font-weight: 700; border: none;
+    border-radius: var(--border-radius); cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
-#download-draft-btn:hover:not(:disabled) {
-    background-color: var(--accent-hover-color);
-}
+#download-draft-btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.15); background-color: var(--accent-hover-color); }
+#download-draft-btn:disabled { background-color: var(--disabled-color); color: #f0f0f0; cursor: not-allowed; opacity: 0.7; box-shadow: none; transform: none; }
 
 
 /* ------------------------- */
 /* Responsividad             */
 /* ------------------------- */
 @media (max-width: 768px) {
-    main#governance-constructor {
-        margin: var(--spacing-unit) auto;
-        padding: var(--spacing-unit);
-        width: 95%;
-    }
-
+    main#governance-constructor { margin: var(--spacing-unit) auto; padding: var(--spacing-unit); width: 95%; }
     header, footer { padding: var(--spacing-unit); }
-    header h1 { font-size: 1.5rem; }
-    header p { font-size: 0.9rem; }
-
-    .step h2 { font-size: 1.4rem; }
-    .module h3 { font-size: 1.15rem; }
-
+    header h1 { font-size: 1.5rem; } header p { font-size: 0.9rem; }
+    .step h2 { font-size: 1.4rem; } .module h3 { font-size: 1.15rem; }
     .grid-checkboxes, .radio-group { grid-template-columns: 1fr; }
     .slider-container { flex-direction: column; align-items: flex-start; }
     .slider-container input[type="range"] { width: 100%; }
     .slider-value { margin-left: 0; margin-top: 0.5rem; }
-
-    .comparison { flex-direction: column; }
-    .comparison-item { width: 100%; }
-
-     /* Ajuste botones en móvil: Ocupan más espacio */
-     #navigation-buttons {
-         justify-content: center; /* Centra los botones si se envuelven */
-     }
-     #navigation-buttons button {
-         flex-basis: 45%; /* Intenta poner 2 por línea */
-         text-align: center;
-         margin-bottom: 0.5rem; /* Espacio si envuelven */
-     }
-     /* Asegurar que Siguiente quede abajo si envuelve */
-     #next-btn { flex-basis: 100%; margin-left: 0; }
-
-
+    .comparison { flex-direction: column; } .comparison-item { width: 100%; }
+    #navigation-buttons { justify-content: center; }
+    #navigation-buttons button { flex-basis: 45%; text-align: center; margin-bottom: 0.5rem; }
+    #next-btn { flex-basis: 100%; margin-left: 0; } /* Siguiente ocupa todo el ancho si envuelve */
     .radar-chart-container { padding: 0.5rem; }
 }
 @media (max-width: 480px) {
-     /* Botones en columna en pantallas muy pequeñas */
-     #navigation-buttons button {
-         flex-basis: 100%;
-     }
+     #navigation-buttons button { flex-basis: 100%; } /* Botones en columna */
+     #next-btn { order: 3; } /* Asegurar orden en columna */
+     #prev-btn { order: 2; }
+     #reset-btn { order: 1; }
 }
